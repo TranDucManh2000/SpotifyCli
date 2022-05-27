@@ -8,15 +8,29 @@
  * @format
  */
 
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {View} from 'react-native';
-import Indexs from './compoment/mp3App/Indexs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Mp3Home from './compoment/mp3App/home/Mp3Home';
+import BodyHome from './compoment/body/home/BodyHome';
 
+const Stack: any = createNativeStackNavigator();
 const App = () => {
   return (
-    <View>
-      <Indexs></Indexs>
-    </View>
+    <NavigationContainer independent>
+      <Stack.Navigator initialRouteName="homebody">
+        <Stack.Screen
+          name="homeMp3"
+          component={Mp3Home}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="homebody"
+          component={BodyHome}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

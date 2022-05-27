@@ -1,12 +1,12 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-const Indexs = () => {
+const BodyHome = () => {
   return (
     <View>
-      <Text>adsđs</Text>
+      <Text>Home Body Thieu nay</Text>
     </View>
   );
 };
 
-export default Indexs;
+export default BodyHome;

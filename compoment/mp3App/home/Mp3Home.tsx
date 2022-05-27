@@ -1,12 +1,12 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-const Indexs = () => {
+const Mp3Home = () => {
   return (
     <View>
-      <Text>adsđs</Text>
+      <Text>Home Mp3</Text>
     </View>
   );
 };
 
-export default Indexs;
+export default Mp3Home;
