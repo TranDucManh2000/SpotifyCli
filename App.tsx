@@ -12,21 +12,21 @@ import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Mp3Home from './compoment/mp3App/home/Mp3Home';
-import BodyHome from './compoment/body/home/BodyHome';
+import MyTabs from './compoment/NavigationBottom';
 
 const Stack: any = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer independent>
-      <Stack.Navigator initialRouteName="homebody">
+      <Stack.Navigator initialRouteName="tab">
         <Stack.Screen
           name="homeMp3"
           component={Mp3Home}
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="homebody"
-          component={BodyHome}
+          name="tab"
+          component={MyTabs}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
