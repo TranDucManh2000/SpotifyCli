@@ -20,6 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {Provider} from 'react-redux';
 import {store} from './compoment/redux/Store';
+import MyTabs from './compoment/NavigationBottom';
 
 const Stack: any = createNativeStackNavigator();
 GoogleSignin.configure({
@@ -72,7 +73,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer independent>
-        <Stack.Navigator initialRouteName="loginStart">
+        <Stack.Navigator initialRouteName="mytab">
           <Stack.Screen
             name="homeMp3"
             component={Mp3Home}
@@ -81,6 +82,11 @@ const App = () => {
           <Stack.Screen
             name="homebody"
             component={BodyHome}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="mytab"
+            component={MyTabs}
             options={{headerShown: false}}
           />
           <Stack.Screen
