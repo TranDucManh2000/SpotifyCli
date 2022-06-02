@@ -20,7 +20,8 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {Provider} from 'react-redux';
 import {store} from './compoment/redux/Store';
 import MyTabs from './compoment/NavigationBottom';
-import Login, {signOut} from './compoment/login/loginBody/Login';
+import AlbumControl from './compoment/body/AlbumControl';
+import Login from './compoment/login/loginBody/Login';
 import Mp3Test from './compoment/mp3App/Mp3Test';
 
 const Stack: any = createNativeStackNavigator();
@@ -85,6 +86,11 @@ const App = () => {
           <Stack.Screen
             name="mp3"
             component={Mp3Test}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="album"
+            component={AlbumControl}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

@@ -12,18 +12,20 @@ import Feather from 'react-native-vector-icons/Feather';
 import Search from '../Search';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AlbumView from '../AlbumView';
-const AppSearch = () => {
-  const [AppSearch, setAppsearch] = useState<boolean>(true);
+import PlayListMp3 from '../PlayListMp3';
+
+const AppSearch = ({navigation}: any) => {
+  const [AppSearcha, setAppsearch] = useState<boolean>(true);
   const [search, setSearch] = useState<boolean>(false);
   const [AlbumViews, setAlbumViews] = useState<boolean>(false);
-
+  const Navigation = navigation;
   const SearchItem = () => {
     setAppsearch(false);
     setSearch(true);
   };
   return (
     <View style={styles.AppSearch}>
-      {AppSearch && (
+      {AppSearcha && (
         <View style={styles.AppSearch_main}>
           <View style={styles.AppSearch_title}>
             <Text style={styles.Text_title}>Search</Text>
@@ -118,8 +120,10 @@ const AppSearch = () => {
           setAppsearch={setAppsearch}
           setSearch={setSearch}
           setAlbumViews={setAlbumViews}
+          Navigation={Navigation}
         />
       )}
+      <PlayListMp3 />
     </View>
   );
 };
