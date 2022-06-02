@@ -92,6 +92,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: '5%',
   },
+  item_Editor: {
+    marginRight: 10,
+  },
   ListMp3: {
     position: 'absolute',
     bottom: 0,

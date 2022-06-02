@@ -79,7 +79,7 @@ const BodyHome = () => {
 
           <Text style={styles.Text_Editor}>Editor’s picks</Text>
           <ScrollView horizontal={true}>
-            <TouchableOpacity>
+            <TouchableOpacity style={styles.item_Editor}>
               <View style={{width: 154}}>
                 <Image
                   source={{
@@ -90,9 +90,7 @@ const BodyHome = () => {
                 <Text style={styles.Text_img_Editor}>{someText}</Text>
               </View>
             </TouchableOpacity>
-          </ScrollView>
-          <ScrollView horizontal={true}>
-            <TouchableOpacity>
+            <TouchableOpacity style={styles.item_Editor}>
               <View style={{width: 154}}>
                 <Image
                   source={{
