@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-export const GetDataProduct = createAsyncThunk('getdata', async () => {
-  return 'manh';
+export const GetDataUid = createAsyncThunk('getdata', async (vl: any) => {
+  return vl;
 });

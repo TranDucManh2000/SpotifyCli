@@ -11,50 +11,32 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Mp3Home from './compoment/mp3App/home/Mp3Home';
+
 import BodyHome from './compoment/body/home/BodyHome';
 import LoginStart from './compoment/login/loginBody/LoginStart';
 import auth from '@react-native-firebase/auth';
 import Signup from './compoment/login/signup/Signup';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {Provider} from 'react-redux';
 import {store} from './compoment/redux/Store';
 import MyTabs from './compoment/NavigationBottom';
+import Login, {signOut} from './compoment/login/loginBody/Login';
+import Mp3Test from './compoment/mp3App/Mp3Test';
 
 const Stack: any = createNativeStackNavigator();
+
 GoogleSignin.configure({
   webClientId:
     '409381713776-off6mdvbk981apm2ui8fkbk1jop5lij1.apps.googleusercontent.com',
 });
+
 const App = () => {
   const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState('mytab');
 
-  const storeData = async () => {
-    try {
-      const jsonValue = JSON.stringify({name: 'manh', duy: 'cc'});
-      await AsyncStorage.setItem('@storage_Key', jsonValue);
-    } catch (e) {
-      // saving error
-    }
-  };
-  storeData();
-  const getData = async () => {
-    try {
-      const jsonValue: any = await AsyncStorage.getItem('@storage_Key');
-      console.log('data', jsonValue);
-      setUser(jsonValue);
+  // signOut();
 
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch (e) {
-      console.log('codata');
-    }
-  };
-  getData();
-
-  // Handle user state changes
-  function onAuthStateChanged() {
+  function onAuthStateChanged(user) {
     setUser(user);
     if (initializing) setInitializing(false);
   }
@@ -67,18 +49,14 @@ const App = () => {
   if (initializing) return null;
 
   if (!user) {
-    return <LoginStart />;
-    // return <Signup />;
+    // console.log('ua', user);
+
+    setUser('loginStart');
   }
   return (
     <Provider store={store}>
       <NavigationContainer independent>
-        <Stack.Navigator initialRouteName="mytab">
-          <Stack.Screen
-            name="homeMp3"
-            component={Mp3Home}
-            options={{headerShown: false}}
-          />
+        <Stack.Navigator initialRouteName="mp3">
           <Stack.Screen
             name="homebody"
             component={BodyHome}
@@ -97,6 +75,16 @@ const App = () => {
           <Stack.Screen
             name="signup"
             component={Signup}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="login"
+            component={Login}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="mp3"
+            component={Mp3Test}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

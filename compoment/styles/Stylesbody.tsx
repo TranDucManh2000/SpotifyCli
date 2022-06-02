@@ -5,7 +5,7 @@ export const stylesBody = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: '#1B1A1C',
     flexDirection: 'row',
     flexWrap: 'wrap',
     position: 'relative',
@@ -32,6 +32,17 @@ export const stylesBody = StyleSheet.create({
     marginTop: 10,
     marginBottom: 5,
   },
+  btnGreen88: {
+    width: '88%',
+    backgroundColor: '#1ED760',
+    height: 50,
+    borderRadius: 50,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 5,
+  },
   btnBlack: {
     width: '80%',
     backgroundColor: '#121212',
@@ -56,5 +67,20 @@ export const stylesBody = StyleSheet.create({
     marginBottom: 5,
     marginTop: 5,
     padding: 10,
+  },
+  vewBetwen100: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // backgroundColor: 'red',
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  vewTopBottom10: {
+    marginBottom: 10,
+    marginTop: 10,
+    // justifyContent:'center',
+    // alignItems:'center'
   },
 });
