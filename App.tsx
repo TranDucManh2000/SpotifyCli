@@ -21,8 +21,6 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {Provider} from 'react-redux';
 import {store} from './compoment/redux/Store';
 import MyTabs from './compoment/NavigationBottom';
-import AlbumControl from './compoment/body/AlbumControl';
-import MusicPlaying from './compoment/body/MusicPlaying';
 
 const Stack: any = createNativeStackNavigator();
 GoogleSignin.configure({
@@ -99,11 +97,6 @@ const App = () => {
           <Stack.Screen
             name="signup"
             component={Signup}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="album"
-            component={AlbumControl}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

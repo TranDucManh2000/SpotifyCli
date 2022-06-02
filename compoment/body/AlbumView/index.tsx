@@ -10,14 +10,8 @@ interface Prop {
   setAppsearch: React.Dispatch<React.SetStateAction<boolean>>;
   setSearch: React.Dispatch<React.SetStateAction<boolean>>;
   setAlbumViews: React.Dispatch<React.SetStateAction<boolean>>;
-  Navigation: any;
 }
-const AlbumView = ({
-  setAppsearch,
-  setSearch,
-  setAlbumViews,
-  Navigation,
-}: Prop) => {
+const AlbumView = ({setAppsearch, setSearch, setAlbumViews}: Prop) => {
   const ComBack = () => {
     setAppsearch(false);
     setAlbumViews(false);
@@ -58,25 +52,19 @@ const AlbumView = ({
               </View>
               <Text style={styles.Album_number}>Album - 2000</Text>
               <View style={styles.doawload}>
-                <TouchableOpacity>
-                  <EvilIcons name="heart" size={25} color={'#B3B3B3'} />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Ionicons
-                    name="arrow-down-circle"
-                    size={25}
-                    color={'#57B65F'}
-                    style={{marginLeft: 10}}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => Navigation.navigate('album')}>
-                  <Entypo
-                    name="dots-three-horizontal"
-                    size={20}
-                    color={'#B3B3B3'}
-                    style={{marginLeft: 10}}
-                  />
-                </TouchableOpacity>
+                <EvilIcons name="heart" size={25} color={'#B3B3B3'} />
+                <Ionicons
+                  name="arrow-down-circle"
+                  size={25}
+                  color={'#57B65F'}
+                  style={{marginLeft: 10}}
+                />
+                <Entypo
+                  name="dots-three-horizontal"
+                  size={20}
+                  color={'#B3B3B3'}
+                  style={{marginLeft: 10}}
+                />
               </View>
             </View>
             <Ionicons
