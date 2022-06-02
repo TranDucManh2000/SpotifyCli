@@ -13,7 +13,7 @@ GoogleSignin.configure({
   webClientId:
     '409381713776-off6mdvbk981apm2ui8fkbk1jop5lij1.apps.googleusercontent.com',
 });
-const LoginStart = () => {
+const LoginStart = ({navigation}: any) => {
   const onGoogleButtonPress = async () => {
     console.log('Usersign in!');
     // Get the users ID token
@@ -21,29 +21,14 @@ const LoginStart = () => {
 
     // Create a Google credential with the token
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
     console.log('ss', googleCredential);
 
     // Sign-in the user with the credential
+
     return auth().signInWithCredential(googleCredential);
   };
-  // const loginout = () => {
-  //   console.log('User signed out!');
-  //   auth()
-  //     .signOut()
-  //     .then(() => console.log('User signed out!'));
-  // };
-  const signOut = async () => {
-    console.log('User signed out!');
-    try {
-      await GoogleSignin.signOut();
-      auth()
-        .signOut()
-        .then(() => console.log('User signed out!'));
-      // this.setState({user: null}); // Remember to remove the user from your app's state as well
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
   return (
     <View style={stylesBody.container100}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -56,7 +41,9 @@ const LoginStart = () => {
               <Text style={stylesText.font28BollWrite}>Free on Spotify.</Text>
             </View>
           </View>
-          <TouchableOpacity style={stylesBody.btnGreen}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('signup')}
+            style={stylesBody.btnGreen}>
             <Text style={stylesText.font16Boll}>Sign up free</Text>
           </TouchableOpacity>
           <View
@@ -94,7 +81,9 @@ const LoginStart = () => {
             />
             <Text style={stylesText.font16BollWrite}>Continue with Apple</Text>
           </View>
-          <View onTouchStart={() => signOut()} style={stylesBody.btnNotcolor}>
+          <View
+            onTouchStart={() => navigation.navigate('login')}
+            style={stylesBody.btnNotcolor}>
             <Text style={stylesText.font16BollWrite}>Log In</Text>
           </View>
         </View>

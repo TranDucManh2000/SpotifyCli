@@ -17,4 +17,13 @@ export const styles = StyleSheet.create({
   highlight: {
     fontWeight: '700',
   },
+  texInputStyle: {
+    width: '88%',
+    height: 50,
+    backgroundColor: '#777777',
+    marginBottom: 10,
+    marginTop: 10,
+    borderRadius: 5,
+    color: '#fff',
+  },
 });
