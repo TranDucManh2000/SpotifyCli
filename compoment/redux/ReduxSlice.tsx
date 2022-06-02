@@ -1,9 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {getstate, initialStates} from '../inteface/InteFace';
-import {GetDataProduct} from './Reduce';
+import {GetDataUid} from './Reduce';
 
 const initialState: initialStates = {
-  datas: '',
+  dataUid: {
+    uid: '1',
+    email: '1',
+  },
 };
 
 export const TodoSlice = createSlice({
@@ -11,14 +14,14 @@ export const TodoSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(GetDataProduct.fulfilled, (state, action) => {
-      state.datas = action.payload;
+    builder.addCase(GetDataUid.fulfilled, (state: any, action: any) => {
+      state.dataUid = action.payload;
     });
   },
 });
 
-export const dataNe = (state: getstate) => {
-  return state.store.datas;
+export const dataUid = (state: getstate) => {
+  return state.store.dataUid;
 };
 
 const TodoReducr = TodoSlice.reducer;

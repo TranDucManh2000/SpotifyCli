@@ -1,8 +1,14 @@
 export interface getstate {
   store: {
-    datas: [];
+    dataUid: {
+      uid: any;
+      email: any;
+    };
   };
 }
 export interface initialStates {
-  datas: String;
+  dataUid: {
+    uid: any;
+    email: any;
+  };
 }
