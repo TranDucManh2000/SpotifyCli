@@ -16,20 +16,14 @@ import BodyHome from './compoment/body/home/BodyHome';
 import LoginStart from './compoment/login/loginBody/LoginStart';
 import auth from '@react-native-firebase/auth';
 import Signup from './compoment/login/signup/Signup';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {Provider} from 'react-redux';
 import {store} from './compoment/redux/Store';
 import MyTabs from './compoment/NavigationBottom';
 import AlbumControl from './compoment/body/AlbumControl';
-import Login from './compoment/login/loginBody/Login';
+import Login, {signOut} from './compoment/login/loginBody/Login';
 import Mp3Test from './compoment/mp3App/Mp3Test';
 
 const Stack: any = createNativeStackNavigator();
-
-GoogleSignin.configure({
-  webClientId:
-    '409381713776-off6mdvbk981apm2ui8fkbk1jop5lij1.apps.googleusercontent.com',
-});
 
 const App = () => {
   const [initializing, setInitializing] = useState(true);
@@ -49,23 +43,21 @@ const App = () => {
 
   if (initializing) return null;
 
-  if (!user) {
-    // console.log('ua', user);
-
+  if (user == null) {
     setUser('loginStart');
   }
   return (
     <Provider store={store}>
       <NavigationContainer independent>
-        <Stack.Navigator initialRouteName="mp3">
-          <Stack.Screen
-            name="homebody"
-            component={BodyHome}
-            options={{headerShown: false}}
-          />
+        <Stack.Navigator initialRouteName="mytab">
           <Stack.Screen
             name="mytab"
             component={MyTabs}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="homebody"
+            component={BodyHome}
             options={{headerShown: false}}
           />
           <Stack.Screen

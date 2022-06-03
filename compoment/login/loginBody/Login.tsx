@@ -21,6 +21,11 @@ export const signOut = async () => {
   }
 };
 
+GoogleSignin.configure({
+  webClientId:
+    '409381713776-off6mdvbk981apm2ui8fkbk1jop5lij1.apps.googleusercontent.com',
+});
+
 const Login = ({navigation}: any) => {
   const [email, setemail]: any = useState();
   const [password, setpassword]: any = useState();
