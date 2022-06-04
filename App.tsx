@@ -31,7 +31,7 @@ const App = () => {
 
   // signOut();
 
-  function onAuthStateChanged(user) {
+  function onAuthStateChanged() {
     setUser(user);
     if (initializing) setInitializing(false);
   }

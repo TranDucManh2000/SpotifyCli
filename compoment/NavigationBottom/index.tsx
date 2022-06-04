@@ -1,18 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import BodyHome from '../body/home/BodyHome';
 import Foundation from 'react-native-vector-icons/Foundation';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AppSearch from '../body/AppSearch';
-import Mp3Test from '../mp3App/Mp3Test';
-import deVuong from '../../android/app/src/main/res/raw/mp3s.mp3';
-import choemve from '../../android/app/src/main/res/raw/choemve.mp3';
+import {GetDataMusic} from '../redux/Reduce';
+import firestore from '@react-native-firebase/firestore';
+import {useDispatch} from 'react-redux';
 
 const Tab: any = createBottomTabNavigator();
 
 function MyTabs() {
-  Mp3Test({music: choemve, playon: 1});
+  const dispatch = useDispatch();
+
+  // nap du lieu vao store
+  useEffect(() => {
+    firestore()
+      .collection('SpotifiMusic')
+      .doc('dbmusic')
+      .onSnapshot(documentSnapshot => {
+        dispatch(GetDataMusic(documentSnapshot.data()));
+      });
+  }, []);
+
   return (
     <Tab.Navigator
       initialRouteName="home"

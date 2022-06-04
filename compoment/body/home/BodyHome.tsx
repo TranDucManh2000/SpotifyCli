@@ -6,9 +6,19 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Feather from 'react-native-vector-icons/Feather';
 import styles from './style';
 import PlayListMp3 from '../PlayListMp3';
+import Mp3Test from '../../mp3App/Mp3Test';
+import {useSelector} from 'react-redux';
+import {dataMusic} from '../../redux/ReduxSlice';
 
 const BodyHome = () => {
   const someText = 'Ed Sheeran, Big Sean, \nJuice WRLD, Post Malone';
+
+  const dataMusics = useSelector(dataMusic);
+
+  Mp3Test({
+    music: dataMusics.musics[0].music,
+    playon: 1,
+  });
 
   return (
     <View style={styles.Home}>

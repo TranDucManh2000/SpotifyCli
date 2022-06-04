@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 // Import the react-native-sound module
 var Sound = require('react-native-sound');
@@ -14,7 +14,7 @@ const Mp3Test = ({music, playon}: any) => {
   // const [indexMusic, setindexMusic] = useState(music);
   // const [musicOnOf, setMusicOnOf] = useState(play);
 
-  var ding = new Sound(music, Sound.MAIN_BUNDLE, error => {
+  var ding = new Sound(music, Sound.MAIN_BUNDLE, (error: any) => {
     if (error) {
       console.log('failed to load the sound', error);
       return;
@@ -36,7 +36,7 @@ const Mp3Test = ({music, playon}: any) => {
   }, []);
 
   const playPause = () => {
-    ding.play(success => {
+    ding.play((success: any) => {
       if (success) {
         console.log('successfully finished playing');
       } else {
@@ -47,16 +47,17 @@ const Mp3Test = ({music, playon}: any) => {
   const pauseMusic = async () => {
     ding.pause();
   };
-  const nexMusic = async () => {
-    ding.stop();
-    setindexMusic(music);
-  };
-  const nexTimeMusic = async () => {
-    ding.getCurrentTime((seconds: any) => ding.setCurrentTime(15 + seconds));
-  };
+  // const nexMusic = async () => {
+  //   ding.stop();
+  //   setindexMusic(music);
+  // };
+  // const nexTimeMusic = async () => {
+  //   ding.getCurrentTime((seconds: any) => ding.setCurrentTime(15 + seconds));
+  // };
 
   setTimeout(() => {
     if (playon == 1) {
+      ding.stop();
       ding.play();
     } else {
       ding.stop();
