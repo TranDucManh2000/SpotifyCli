@@ -72,7 +72,7 @@ const AlbumControl = ({navigation}: any) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            navigation.goBack('Search');
+            navigation.goBack();
           }}>
           <View style={styles.Close}>
             <Text style={styles.name_Option}>Close</Text>

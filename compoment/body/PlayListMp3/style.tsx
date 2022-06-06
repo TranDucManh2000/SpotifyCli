@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   },
   item_PlayMp3: {
     flexDirection: 'row',
+    marginLeft: 10,
   },
   name_item: {
     overflow: 'hidden',

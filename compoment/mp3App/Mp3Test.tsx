@@ -33,6 +33,7 @@ const Mp3Test = ({music, playon}: any) => {
     return () => {
       ding.release();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const playPause = () => {
