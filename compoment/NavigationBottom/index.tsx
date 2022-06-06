@@ -20,7 +20,7 @@ function MyTabs() {
   useEffect(() => {
     firestore()
       .collection('SpotifiMusic')
-      .doc('dbmusic')
+      .doc('dbmusics')
       .onSnapshot(documentSnapshot => {
         dispatch(GetDataMusic(documentSnapshot.data()));
       });

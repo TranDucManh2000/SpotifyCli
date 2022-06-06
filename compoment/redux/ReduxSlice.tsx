@@ -8,7 +8,7 @@ const initialState: initialStates = {
     email: '1',
   },
   dataMusic: {
-    musics: [{album: '', date: '', img: '', music: '', singer: ''}],
+    musics: [{album: '', date: '', img: '', music: '', singer: '', uid: ''}],
   },
 };
 
