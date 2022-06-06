@@ -5,7 +5,9 @@ export interface getstate {
       email: any;
     };
     dataMusic: {
-      musics: [{album: any; date: any; img: any; music: any; singer: any}];
+      musics: [
+        {album: any; date: any; img: any; music: any; singer: any; uid: any},
+      ];
     };
   };
 }
@@ -15,6 +17,8 @@ export interface initialStates {
     email: any;
   };
   dataMusic: {
-    musics: [{album: any; date: any; img: any; music: any; singer: any}];
+    musics: [
+      {album: any; date: any; img: any; music: any; singer: any; uid: any},
+    ];
   };
 }

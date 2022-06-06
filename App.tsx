@@ -49,7 +49,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer independent>
-        <Stack.Navigator initialRouteName="mytab">
+        <Stack.Navigator initialRouteName={user}>
           <Stack.Screen
             name="mytab"
             component={MyTabs}
