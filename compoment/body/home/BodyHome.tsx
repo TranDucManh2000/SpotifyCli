@@ -14,10 +14,14 @@ const BodyHome = () => {
   const someText = 'Ed Sheeran, Big Sean, \nJuice WRLD, Post Malone';
 
   const dataMusics = useSelector(dataMusic);
+  // data item song home
+  const dataRecently = dataMusics.musics.slice(8, 13);
+  const dataView2021 = dataMusics.musics.slice(30, 35);
+  const dataEditorPicks = dataMusics.musics.slice(60, 65);
 
   Mp3Test({
     music: dataMusics.musics[0].music,
-    playon: 1,
+    playon: 0,
   });
 
   return (
@@ -46,23 +50,23 @@ const BodyHome = () => {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             style={{marginBottom: '5%'}}>
-            <TouchableOpacity>
-              <View style={styles.itemImage}>
-                <Image
-                  style={styles.imgPlayyed}
-                  source={{
-                    uri: 'https://i.9mobi.vn/cf/Images/huy/2021/12/6/anh-gai-xinh-3.jpg',
-                  }}
-                />
-                <Text style={styles.imgText}>1(Remastered)</Text>
-              </View>
-            </TouchableOpacity>
+            {dataRecently.map(item => (
+              <TouchableOpacity>
+                <View style={styles.itemImage}>
+                  <Image
+                    style={styles.imgPlayyed}
+                    source={{
+                      uri: item.img,
+                    }}
+                  />
+                  <Text style={styles.imgText}>{item.singer}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
           </ScrollView>
           <View style={styles.Your_2021}>
             <Image
-              source={{
-                uri: 'https://i.9mobi.vn/cf/Images/huy/2021/12/6/anh-gai-xinh-3.jpg',
-              }}
+              source={require('../../imgApp/view2021.png')}
               style={styles.imgYour}
             />
             <View>
@@ -74,43 +78,36 @@ const BodyHome = () => {
             showsVerticalScrollIndicator={false}
             horizontal
             style={{marginBottom: '5%'}}>
-            <TouchableOpacity>
-              <View>
-                <Image
-                  source={{
-                    uri: 'https://i.9mobi.vn/cf/Images/huy/2021/12/6/anh-gai-xinh-3.jpg',
-                  }}
-                  style={styles.img_listReview}
-                />
-                <Text style={styles.text_listReview}>Your Top Songs 2021</Text>
-              </View>
-            </TouchableOpacity>
+            {dataView2021.map(item => (
+              <TouchableOpacity>
+                <View>
+                  <Image
+                    source={{
+                      uri: item.img,
+                    }}
+                    style={styles.img_listReview}
+                  />
+                  <Text style={styles.text_listReview}>{item.album}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
           </ScrollView>
 
           <Text style={styles.Text_Editor}>Editor’s picks</Text>
-          <ScrollView horizontal={true}>
-            <TouchableOpacity style={styles.item_Editor}>
-              <View style={{width: 154}}>
-                <Image
-                  source={{
-                    uri: 'https://i.9mobi.vn/cf/Images/huy/2021/12/6/anh-gai-xinh-3.jpg',
-                  }}
-                  style={styles.img_Editor}
-                />
-                <Text style={styles.Text_img_Editor}>{someText}</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item_Editor}>
-              <View style={{width: 154}}>
-                <Image
-                  source={{
-                    uri: 'https://i.9mobi.vn/cf/Images/huy/2021/12/6/anh-gai-xinh-3.jpg',
-                  }}
-                  style={styles.img_Editor}
-                />
-                <Text style={styles.Text_img_Editor}>{someText}</Text>
-              </View>
-            </TouchableOpacity>
+          <ScrollView horizontal={true} style={{marginBottom: 100}}>
+            {dataEditorPicks.map(item => (
+              <TouchableOpacity style={styles.item_Editor}>
+                <View style={{width: 154}}>
+                  <Image
+                    source={{
+                      uri: item.img,
+                    }}
+                    style={styles.img_Editor}
+                  />
+                  <Text style={styles.Text_img_Editor}>{someText}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
           </ScrollView>
         </View>
       </ScrollView>

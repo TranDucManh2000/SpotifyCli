@@ -88,6 +88,7 @@ const Signup = ({navigation}: any) => {
               style={styles.texInputStyle}
               onChangeText={(emailvl: any) => setemail(emailvl)}
             />
+
             <Text style={stylesText.font20BollWrite}>Create a password</Text>
             <TextInput
               style={styles.texInputStyle}

@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
     color: '#fff',
+    marginBottom: 10,
   },
   img_Editor: {
     width: 153,
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
   itemImage: {
     alignItems: 'center',
     justifyContent: 'center',
+    paddingRight: 10,
   },
   imgText: {
     fontSize: 12,
