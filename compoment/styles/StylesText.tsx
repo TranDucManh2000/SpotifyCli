@@ -30,4 +30,14 @@ export const stylesText = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
   },
+  font20BollBlack: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'Black',
+  },
+  font24BollWrite: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
 });
