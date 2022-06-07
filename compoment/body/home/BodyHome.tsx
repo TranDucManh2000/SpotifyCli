@@ -1,12 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import styles from './style';
 import PlayListMp3 from '../PlayListMp3';
-import Mp3Test from '../../mp3App/Mp3Test';
 import {useSelector} from 'react-redux';
 import {dataMusic} from '../../redux/ReduxSlice';
 
@@ -18,11 +17,6 @@ const BodyHome = () => {
   const dataRecently = dataMusics.musics.slice(8, 13);
   const dataView2021 = dataMusics.musics.slice(30, 35);
   const dataEditorPicks = dataMusics.musics.slice(60, 65);
-
-  Mp3Test({
-    music: dataMusics.musics[0].music,
-    playon: 0,
-  });
 
   return (
     <View style={styles.Home}>

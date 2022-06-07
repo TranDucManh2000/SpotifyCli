@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ScrollView, Text, TextInput, View, Alert} from 'react-native';
+import {ScrollView, Text, TextInput, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {stylesBody} from '../../styles/Stylesbody';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -7,10 +7,12 @@ import {styles} from '../../styles/Styles';
 import {stylesText} from '../../styles/StylesText';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Modals from '../../moda/Modals';
 
 const Signup = ({navigation}: any) => {
   const [email, setemail]: any = useState();
   const [password, setpassword]: any = useState();
+  const [openModal, setOpenModal]: any = useState(false);
 
   const register = () => {
     console.log('dang ky');
@@ -41,26 +43,12 @@ const Signup = ({navigation}: any) => {
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
           console.log('That email address is already in use!');
-          Alert.alert('register', 'That email address is already in use!', [
-            {
-              text: 'Cancel',
-              onPress: () => console.log('Cancel Pressed'),
-              style: 'cancel',
-            },
-            {text: 'OK', onPress: () => console.log('OK Pressed')},
-          ]);
+          setOpenModal(error);
         }
 
         if (error.code === 'auth/invalid-email') {
           console.log('That email address is invalid!');
-          Alert.alert('register', 'That email address is invalid!', [
-            {
-              text: 'Cancel',
-              onPress: () => console.log('Cancel Pressed'),
-              style: 'cancel',
-            },
-            {text: 'OK', onPress: () => console.log('OK Pressed')},
-          ]);
+          setOpenModal(error);
         }
 
         console.error(error);
@@ -71,6 +59,11 @@ const Signup = ({navigation}: any) => {
     <View style={stylesBody.container100}>
       <View style={stylesBody.container90}>
         <ScrollView>
+          <Modals
+            playmd={openModal}
+            titlemd={'Signup Error'}
+            textmd={'That email address is already in use!'}
+          />
           <View style={stylesBody.vewBetwen100}>
             <IconAntDesign
               onPress={() => navigation.goBack()}

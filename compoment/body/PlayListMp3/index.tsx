@@ -9,6 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modal';
 import LinearGradient from 'react-native-linear-gradient';
 import Slider from '@react-native-community/slider';
+
 const PlayListMp3 = () => {
   const [openMV, setOpenMV] = useState(false);
   const OpenPlayMV = () => {
