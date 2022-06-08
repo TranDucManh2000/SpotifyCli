@@ -13,7 +13,7 @@ const Modals = ({playmd, titlemd, textmd}: any) => {
   };
 
   useEffect(() => {
-    setModalVisible(true);
+    playmd ? setModalVisible(true) : setModalVisible(false);
   }, [playmd, titlemd, textmd]);
 
   return (

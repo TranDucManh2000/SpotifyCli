@@ -30,12 +30,20 @@ GoogleSignin.configure({
 const Login = ({navigation}: any) => {
   const [email, setemail]: any = useState();
   const [password, setpassword]: any = useState();
-  const [openModal, setOpenModal]: any = useState(false);
+  const [openModal, setOpenModal]: any = useState({
+    playmd: false,
+    titlemd: '',
+    textmd: '',
+  });
 
   const checkLogin = () => {
     if (email == null || password == null) {
       console.log('null');
-      setOpenModal(email);
+      setOpenModal({
+        playmd: true,
+        titlemd: 'Login Error',
+        textmd: 'Email or Password not null',
+      });
     } else {
       login();
     }
@@ -68,12 +76,20 @@ const Login = ({navigation}: any) => {
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
           console.log('That email address is already in use!');
-          setOpenModal(error);
+          setOpenModal({
+            playmd: true,
+            titlemd: 'Login Error',
+            textmd: 'auth/email-already-in-use',
+          });
         }
 
         if (error.code === 'auth/invalid-email') {
           console.log('That email address is already in use!');
-          setOpenModal(error);
+          setOpenModal({
+            playmd: true,
+            titlemd: 'Login Error',
+            textmd: 'auth/invalid-email',
+          });
         }
 
         console.error(error);
@@ -84,9 +100,9 @@ const Login = ({navigation}: any) => {
       <View style={stylesBody.container90}>
         <ScrollView>
           <Modals
-            playmd={openModal}
-            titlemd={'Login Error'}
-            textmd={'That email address is already in use!'}
+            playmd={openModal.playmd}
+            titlemd={openModal.titlemd}
+            textmd={openModal.textmd}
           />
           <View style={stylesBody.vewBetwen100}>
             {/* <Modals playmd={false} titlemd={'Login'} textmd={'That'}></Modals>; */}

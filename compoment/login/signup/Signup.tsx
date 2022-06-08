@@ -12,7 +12,24 @@ import Modals from '../../moda/Modals';
 const Signup = ({navigation}: any) => {
   const [email, setemail]: any = useState();
   const [password, setpassword]: any = useState();
-  const [openModal, setOpenModal]: any = useState(false);
+  const [openModal, setOpenModal]: any = useState({
+    playmd: false,
+    titlemd: '',
+    textmd: '',
+  });
+
+  const checkRegister = () => {
+    if (email == null || password == null) {
+      console.log('null');
+      setOpenModal({
+        playmd: true,
+        titlemd: 'Login Error',
+        textmd: 'Email or Password not null',
+      });
+    } else {
+      register();
+    }
+  };
 
   const register = () => {
     console.log('dang ky');
@@ -43,12 +60,20 @@ const Signup = ({navigation}: any) => {
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
           console.log('That email address is already in use!');
-          setOpenModal(error);
+          setOpenModal({
+            playmd: true,
+            titlemd: 'Login Error',
+            textmd: 'auth/email-already-in-use',
+          });
         }
 
         if (error.code === 'auth/invalid-email') {
           console.log('That email address is invalid!');
-          setOpenModal(error);
+          setOpenModal({
+            playmd: true,
+            titlemd: 'Login Error',
+            textmd: 'auth/invalid-email',
+          });
         }
 
         console.error(error);
@@ -60,9 +85,9 @@ const Signup = ({navigation}: any) => {
       <View style={stylesBody.container90}>
         <ScrollView>
           <Modals
-            playmd={openModal}
-            titlemd={'Signup Error'}
-            textmd={'That email address is already in use!'}
+            playmd={openModal.playmd}
+            titlemd={openModal.titlemd}
+            textmd={openModal.textmd}
           />
           <View style={stylesBody.vewBetwen100}>
             <IconAntDesign
@@ -97,7 +122,7 @@ const Signup = ({navigation}: any) => {
             </Text>
             <View style={stylesBody.container90}>
               <View
-                onTouchStart={() => register()}
+                onTouchStart={() => checkRegister()}
                 style={stylesBody.btnGreen88}>
                 <Text style={stylesText.font16BollWrite}>Register</Text>
               </View>
