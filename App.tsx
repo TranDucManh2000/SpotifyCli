@@ -22,6 +22,7 @@ import MyTabs from './compoment/NavigationBottom';
 import AlbumControl from './compoment/body/AlbumControl';
 import Login, {signOut} from './compoment/login/loginBody/Login';
 import Mp3Test from './compoment/mp3App/Mp3Test';
+import HomeProfile from './compoment/profile/profiledit/HomeProfile';
 
 const Stack: any = createNativeStackNavigator();
 
@@ -85,6 +86,11 @@ const App = () => {
               component={AlbumControl}
               options={{headerShown: false}}
             />
+            <Stack.Screen
+              name="homeprofile"
+              component={HomeProfile}
+              options={{headerShown: false}}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
@@ -127,6 +133,11 @@ const App = () => {
           <Stack.Screen
             name="album"
             component={AlbumControl}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="homeprofile"
+            component={HomeProfile}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

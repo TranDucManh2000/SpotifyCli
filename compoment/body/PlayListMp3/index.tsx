@@ -13,9 +13,11 @@ import {
   dataCurrentTime,
   dataPlayItem,
   dataAllTime,
+  dataMusic,
 } from '../../redux/ReduxSlice';
 import Mp3Test from '../../mp3App/Mp3Test';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {AddPlaysong} from '../../redux/Reduce';
 
 const PlayListMp3 = () => {
   const [openMV, setOpenMV] = useState(false);
@@ -24,14 +26,17 @@ const PlayListMp3 = () => {
   const dataPlay = useSelector(dataPlayItem);
   const currentTime = useSelector(dataCurrentTime);
   const allTime = useSelector(dataAllTime);
-  console.log('++)\\\\\\\\\\\\\\', allTime);
-  console.log('++)))))))))))))', currentTime);
+  const dataMusics = useSelector(dataMusic);
+  const dispath = useDispatch();
+  // console.log('++)\\\\\\\\\\\\\\', allTime);
+  // console.log('++)))))))))))))', currentTime);
   const OpenPlayMV = () => {
     setOpenMV(!openMV);
   };
   Mp3Test({
     music: dataPlay.music,
     playon: openSong,
+    playid: dataPlay.uid,
   });
   const onPlayItem = () => {
     setOpenSong(!openSong);
@@ -45,6 +50,15 @@ const PlayListMp3 = () => {
   };
   const openPlayModa = () => {
     setOpenSong(!openSong);
+  };
+  const nextDing = (uid: any, item: any) => {
+    console.log('add ding =====>');
+    dataMusics.musics.map(vl => {
+      if (vl.uid == uid + item) {
+        dispath(AddPlaysong(vl));
+        setOpenSong(false);
+      }
+    });
   };
   return (
     <View style={styles.PlayMp3}>
@@ -143,7 +157,7 @@ const PlayListMp3 = () => {
                   <TouchableOpacity>
                     <Entypo name="shuffle" size={20} color={'#fff'} />
                   </TouchableOpacity>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => nextDing(dataPlay.uid, -1)}>
                     <AntDesign name="stepbackward" size={35} color={'#fff'} />
                   </TouchableOpacity>
                   {openSong && (
@@ -161,7 +175,7 @@ const PlayListMp3 = () => {
                     </TouchableOpacity>
                   )}
 
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => nextDing(dataPlay.uid, +1)}>
                     <AntDesign name="stepforward" size={35} color={'#fff'} />
                   </TouchableOpacity>
                   <TouchableOpacity>

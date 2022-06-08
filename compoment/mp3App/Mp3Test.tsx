@@ -9,7 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useDispatch} from 'react-redux';
 import {getDataCurrentTime, getDataAllTime} from '../redux/ReduxSlice';
 
-const Mp3Test = async ({music, playon}: any) => {
+const Mp3Test = async ({music, playon, playid}: any) => {
   const dispatch = useDispatch();
   Sound.setCategory('Playback');
 
@@ -39,7 +39,7 @@ const Mp3Test = async ({music, playon}: any) => {
   ding.getCurrentTime((t: any) => dispatch(getDataCurrentTime(t)));
 
   useEffect(() => {
-    ding.setVolume(6);
+    ding.setVolume(1);
     return () => {
       ding.release();
     };

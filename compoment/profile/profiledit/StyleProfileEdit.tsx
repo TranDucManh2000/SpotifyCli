@@ -46,4 +46,10 @@ export const stylesProfileEdit = StyleSheet.create({
   tab20: {
     marginTop: 20,
   },
+  inputProfile: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
+    width: 'auto',
+  },
 });
