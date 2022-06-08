@@ -13,8 +13,6 @@ const Mp3Test = async ({music, playon}: any) => {
   const dispatch = useDispatch();
   Sound.setCategory('Playback');
 
-  console.log('music=========', music);
-
   const ding = useMemo(
     () =>
       new Sound(music, Sound.MAIN_BUNDLE, (error: any) => {
@@ -66,7 +64,6 @@ const Mp3Test = async ({music, playon}: any) => {
   }, [ding]);
 
   useEffect(() => {
-    console.log('0000000000000');
     console.log('playon', playon);
     playon ? playPause() : pauseMusic();
   }, [pauseMusic, playPause, playon]);

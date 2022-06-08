@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ScrollView, Text, TextInput, View, Alert} from 'react-native';
+import {ScrollView, Text, TextInput, View} from 'react-native';
 import {stylesBody} from '../../styles/Stylesbody';
 import {stylesText} from '../../styles/StylesText';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -8,6 +8,7 @@ import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import firestore from '@react-native-firebase/firestore';
+import Modals from '../../moda/Modals';
 
 export const signOut = async () => {
   try {
@@ -29,17 +30,20 @@ GoogleSignin.configure({
 const Login = ({navigation}: any) => {
   const [email, setemail]: any = useState();
   const [password, setpassword]: any = useState();
+  const [openModal, setOpenModal]: any = useState({
+    playmd: false,
+    titlemd: '',
+    textmd: '',
+  });
 
   const checkLogin = () => {
     if (email == null || password == null) {
-      Alert.alert('Login Erro', 'That email address is already in use!', [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
-      ]);
+      console.log('null');
+      setOpenModal({
+        playmd: true,
+        titlemd: 'Login Error',
+        textmd: 'Email or Password not null',
+      });
     } else {
       login();
     }
@@ -72,26 +76,20 @@ const Login = ({navigation}: any) => {
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
           console.log('That email address is already in use!');
-          Alert.alert('Login Erro', 'That email address is already in use!', [
-            {
-              text: 'Cancel',
-              onPress: () => console.log('Cancel Pressed'),
-              style: 'cancel',
-            },
-            {text: 'OK', onPress: () => console.log('OK Pressed')},
-          ]);
+          setOpenModal({
+            playmd: true,
+            titlemd: 'Login Error',
+            textmd: 'auth/email-already-in-use',
+          });
         }
 
         if (error.code === 'auth/invalid-email') {
           console.log('That email address is already in use!');
-          Alert.alert('Login Erro', 'That email address is already in use!', [
-            {
-              text: 'Cancel',
-              onPress: () => console.log('Cancel Pressed'),
-              style: 'cancel',
-            },
-            {text: 'OK', onPress: () => console.log('OK Pressed')},
-          ]);
+          setOpenModal({
+            playmd: true,
+            titlemd: 'Login Error',
+            textmd: 'auth/invalid-email',
+          });
         }
 
         console.error(error);
@@ -101,7 +99,13 @@ const Login = ({navigation}: any) => {
     <View style={stylesBody.container100}>
       <View style={stylesBody.container90}>
         <ScrollView>
+          <Modals
+            playmd={openModal.playmd}
+            titlemd={openModal.titlemd}
+            textmd={openModal.textmd}
+          />
           <View style={stylesBody.vewBetwen100}>
+            {/* <Modals playmd={false} titlemd={'Login'} textmd={'That'}></Modals>; */}
             <IconAntDesign
               onPress={() => navigation.goBack()}
               style={{width: '22%'}}

@@ -27,11 +27,12 @@ const Stack: any = createNativeStackNavigator();
 
 const App = () => {
   const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState('mytab');
+  const [user, setUser] = useState();
 
   // signOut();
 
-  function onAuthStateChanged() {
+  // Handle user state changes
+  function onAuthStateChanged(user) {
     setUser(user);
     if (initializing) setInitializing(false);
   }
@@ -44,8 +45,50 @@ const App = () => {
 
   if (initializing) return null;
 
-  if (user == null) {
-    setUser('loginStart');
+  if (!user) {
+    return (
+      <Provider store={store}>
+        <NavigationContainer independent>
+          <Stack.Navigator initialRouteName="loginStart">
+            <Stack.Screen
+              name="mytab"
+              component={MyTabs}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="homebody"
+              component={BodyHome}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="loginStart"
+              component={LoginStart}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="signup"
+              component={Signup}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="login"
+              component={Login}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="mp3"
+              component={Mp3Test}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="album"
+              component={AlbumControl}
+              options={{headerShown: false}}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    );
   }
   return (
     <Provider store={store}>
