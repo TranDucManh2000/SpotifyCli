@@ -7,7 +7,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import ProfileEdit from '../profiledit/ProfileEdit';
 
-const Library = () => {
+const Library = ({navigation}: any) => {
   const [indexLibary, setIndexLibary] = useState<boolean>(true);
   const [indexProfiEdit, setIndexProfiedit] = useState<boolean>(false);
 
@@ -92,6 +92,7 @@ const Library = () => {
         <ProfileEdit
           setIndexLibary={setIndexLibary}
           setIndexProfiedit={setIndexProfiedit}
+          navigation={navigation}
         />
       )}
     </View>

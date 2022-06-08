@@ -9,6 +9,9 @@ export const GetDataMusic = createAsyncThunk(
     return vl;
   },
 );
+export const AddPlaysong = createAsyncThunk('addplaysong', async (vls: any) => {
+  return vls;
+});
 
 // add data
 

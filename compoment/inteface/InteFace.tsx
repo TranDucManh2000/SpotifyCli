@@ -15,6 +15,7 @@ export interface getstate {
       img: any;
       music: any;
       singer: any;
+      uid: any;
     };
     currentTime: number;
     allTime: number;
@@ -36,6 +37,7 @@ export interface initialStates {
     img: any;
     music: any;
     singer: any;
+    uid: any;
   };
   currentTime: number;
   allTime: number;

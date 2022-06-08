@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {getstate, initialStates} from '../inteface/InteFace';
-import {GetDataMusic, GetDataUid} from './Reduce';
+import {AddPlaysong, GetDataMusic, GetDataUid} from './Reduce';
 
 const initialState: initialStates = {
   dataUid: {
@@ -16,6 +16,7 @@ const initialState: initialStates = {
     img: '',
     music: '',
     singer: '',
+    uid: '',
   },
   currentTime: 0,
   allTime: 0,
@@ -38,7 +39,10 @@ export const TodoSlice = createSlice({
     });
     builder.addCase(GetDataMusic.fulfilled, (state: any, action: any) => {
       state.dataMusic = action.payload;
-      state.itemPlaySong = action.payload.musics[0];
+      state.itemPlaySong = action.payload.musics[10];
+    });
+    builder.addCase(AddPlaysong.fulfilled, (state: any, action: any) => {
+      state.itemPlaySong = action.payload;
     });
   },
 });

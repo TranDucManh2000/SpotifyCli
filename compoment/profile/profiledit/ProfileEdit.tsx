@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, ScrollView, Text, View} from 'react-native';
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {stylesText} from '../../styles/StylesText';
 import {stylesLibary} from '../Library/StyleLibary';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -7,7 +7,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import LinearGradient from 'react-native-linear-gradient';
 import {stylesProfileEdit} from './StyleProfileEdit';
 
-const ProfileEdit = ({setIndexLibary, setIndexProfiedit}: any) => {
+const ProfileEdit = ({setIndexLibary, setIndexProfiedit, navigation}: any) => {
   const ComBack = () => {
     setIndexLibary(true);
     setIndexProfiedit(false);
@@ -49,9 +49,11 @@ const ProfileEdit = ({setIndexLibary, setIndexProfiedit}: any) => {
               />
             </View>
             <View style={stylesProfileEdit.vewCenter}>
-              <View style={stylesProfileEdit.btnEdit}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('homeprofile')}
+                style={stylesProfileEdit.btnEdit}>
                 <Text style={stylesText.font16BollWrite}>Edit Profile</Text>
-              </View>
+              </TouchableOpacity>
             </View>
             <View style={stylesProfileEdit.vewAround}>
               <View style={stylesProfileEdit.vewCenter}>
