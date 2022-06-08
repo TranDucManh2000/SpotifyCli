@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+
 const styles = StyleSheet.create({
   AlbumView: {
     flex: 1,
@@ -21,10 +22,10 @@ const styles = StyleSheet.create({
   },
 
   name_Remastered: {
-    fontWeight: '600',
-    fontSize: 25,
+    fontWeight: '500',
+    fontSize: 14,
     lineHeight: 34,
-    color: '#fff',
+    color: '#B3B3B3',
     marginBottom: 8,
   },
   play_item_album: {

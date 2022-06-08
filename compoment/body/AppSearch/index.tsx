@@ -13,11 +13,14 @@ import Search from '../Search';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AlbumView from '../AlbumView';
 import PlayListMp3 from '../PlayListMp3';
+import {useSelector} from 'react-redux';
+import {dataPlayItem} from '../../redux/ReduxSlice';
 
 const AppSearch = ({navigation}: any) => {
   const [AppSearcha, setAppsearch] = useState<boolean>(true);
   const [search, setSearch] = useState<boolean>(false);
   const [AlbumViews, setAlbumViews] = useState<boolean>(false);
+  const dataPlay = useSelector(dataPlayItem);
   const Navigation = navigation;
   const SearchItem = () => {
     setAppsearch(false);
@@ -123,7 +126,7 @@ const AppSearch = ({navigation}: any) => {
           Navigation={Navigation}
         />
       )}
-      <PlayListMp3 />
+      <PlayListMp3 dataPlay={dataPlay} />
     </View>
   );
 };

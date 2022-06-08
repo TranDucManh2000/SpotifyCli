@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   time_play: {
-    height: 6,
+    height: 4,
     backgroundColor: '#702F3D',
     borderRadius: 30,
   },

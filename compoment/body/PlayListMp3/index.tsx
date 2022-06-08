@@ -9,10 +9,42 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modal';
 import LinearGradient from 'react-native-linear-gradient';
 import Slider from '@react-native-community/slider';
+import {
+  dataCurrentTime,
+  dataPlayItem,
+  dataAllTime,
+} from '../../redux/ReduxSlice';
+import Mp3Test from '../../mp3App/Mp3Test';
+import {useSelector} from 'react-redux';
+
 const PlayListMp3 = () => {
   const [openMV, setOpenMV] = useState(false);
+  const [openSong, setOpenSong] = useState(false);
+
+  const dataPlay = useSelector(dataPlayItem);
+  const currentTime = useSelector(dataCurrentTime);
+  const allTime = useSelector(dataAllTime);
+  console.log('++)\\\\\\\\\\\\\\', allTime);
+  console.log('++)))))))))))))', currentTime);
   const OpenPlayMV = () => {
     setOpenMV(!openMV);
+  };
+  Mp3Test({
+    music: dataPlay.music,
+    playon: openSong,
+  });
+  const onPlayItem = () => {
+    setOpenSong(!openSong);
+  };
+  const OfPauItem = () => {
+    setOpenSong(!openSong);
+  };
+
+  const offPlayModa = () => {
+    setOpenSong(!openSong);
+  };
+  const openPlayModa = () => {
+    setOpenSong(!openSong);
   };
   return (
     <View style={styles.PlayMp3}>
@@ -26,13 +58,11 @@ const PlayListMp3 = () => {
               <Image
                 style={styles.Img_PlayMp3}
                 source={{
-                  uri: 'https://i.9mobi.vn/cf/Images/huy/2021/12/6/anh-gai-xinh-3.jpg',
+                  uri: dataPlay.img,
                 }}
               />
               <View style={styles.name_item}>
-                <Text style={styles.text_nameItem}>
-                  From Me to You - Mono / Remastered{' '}
-                </Text>
+                <Text style={styles.text_nameItem}>{dataPlay.singer}</Text>
                 <View style={styles.play_device}>
                   <Feather name="bluetooth" size={16} color={'#1DB954'} />
                   <Text style={styles.play_deviceText}>BEATSPILL+</Text>
@@ -43,7 +73,17 @@ const PlayListMp3 = () => {
         </ScrollView>
         <View style={styles.item_paus}>
           <Feather name="bluetooth" size={25} color={'#1DB954'} />
-          <Entypo name="controller-paus" size={35} color={'#fff'} />
+          {openSong && (
+            <TouchableOpacity onPress={() => OfPauItem()}>
+              <Entypo name="controller-paus" size={35} color={'#fff'} />
+            </TouchableOpacity>
+          )}
+
+          {!openSong && (
+            <TouchableOpacity onPress={() => onPlayItem()}>
+              <Entypo name="controller-play" size={35} color={'#fff'} />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
       <View style={styles.time_play}>
@@ -76,14 +116,12 @@ const PlayListMp3 = () => {
                 <Image
                   style={styles.img_PlayModal}
                   source={{
-                    uri: 'https://i.9mobi.vn/cf/Images/huy/2021/12/6/anh-gai-xinh-3.jpg',
+                    uri: dataPlay.img,
                   }}
                 />
               </View>
               <View>
-                <Text style={styles.song_PlayModal}>
-                  From Me to You - Mono / Remast
-                </Text>
+                <Text style={styles.song_PlayModal}>{dataPlay.singer}</Text>
                 <View style={styles.singer_Heart}>
                   <Text style={styles.singer_PlayModal}>The Beatles</Text>
                   <EvilIcons name="heart" size={35} color={'#fff'} />
@@ -91,7 +129,8 @@ const PlayListMp3 = () => {
                 <Slider
                   style={{width: '100%', height: 20}}
                   minimumValue={0}
-                  maximumValue={1}
+                  maximumValue={allTime}
+                  value={(currentTime / allTime) * 100}
                   minimumTrackTintColor="#FFFF"
                   maximumTrackTintColor="#777777"
                   thumbTintColor="#ffff"
@@ -107,13 +146,21 @@ const PlayListMp3 = () => {
                   <TouchableOpacity>
                     <AntDesign name="stepbackward" size={35} color={'#fff'} />
                   </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Ionicons
-                      name="pause-circle-sharp"
-                      size={80}
-                      color={'#fff'}
-                    />
-                  </TouchableOpacity>
+                  {openSong && (
+                    <TouchableOpacity onPress={() => offPlayModa()}>
+                      <Ionicons
+                        name="pause-circle-sharp"
+                        size={80}
+                        color={'#fff'}
+                      />
+                    </TouchableOpacity>
+                  )}
+                  {!openSong && (
+                    <TouchableOpacity onPress={() => openPlayModa()}>
+                      <AntDesign name="play" size={80} color={'#fff'} />
+                    </TouchableOpacity>
+                  )}
+
                   <TouchableOpacity>
                     <AntDesign name="stepforward" size={35} color={'#fff'} />
                   </TouchableOpacity>
