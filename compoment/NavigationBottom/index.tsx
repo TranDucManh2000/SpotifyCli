@@ -58,7 +58,7 @@ function MyTabs() {
         options={{
           headerShown: false,
           tabBarIcon: () => (
-            <Ionicons name="library-outline" size={30} color={'#000'} />
+            <Ionicons name="library-outline" size={25} color={'#000'} />
           ),
         }}
       />

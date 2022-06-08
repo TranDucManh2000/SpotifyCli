@@ -9,6 +9,15 @@ export interface getstate {
         {album: any; date: any; img: any; music: any; singer: any; uid: any},
       ];
     };
+    itemPlaySong: {
+      album: any;
+      date: any;
+      img: any;
+      music: any;
+      singer: any;
+    };
+    currentTime: number;
+    allTime: number;
   };
 }
 export interface initialStates {
@@ -21,4 +30,13 @@ export interface initialStates {
       {album: any; date: any; img: any; music: any; singer: any; uid: any},
     ];
   };
+  itemPlaySong: {
+    album: any;
+    date: any;
+    img: any;
+    music: any;
+    singer: any;
+  };
+  currentTime: number;
+  allTime: number;
 }
