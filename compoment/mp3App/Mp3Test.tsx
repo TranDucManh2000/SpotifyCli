@@ -6,10 +6,18 @@ var Sound = require('react-native-sound');
 // import deVuong from '../../android/app/src/main/res/raw/mp3s.mp3';
 // import choemve from '../../android/app/src/main/res/raw/choemve.mp3';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useDispatch} from 'react-redux';
-import {getDataCurrentTime, getDataAllTime} from '../redux/ReduxSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {AddPlaysong} from '../redux/Reduce';
+import {
+  getDataCurrentTime,
+  getDataAllTime,
+  dataPlayItem,
+  dataMusic,
+} from '../redux/ReduxSlice';
 
 const Mp3Test = async ({music, playon, playid}: any) => {
+  const dataPlay = useSelector(dataPlayItem);
+  const dataMusics = useSelector(dataMusic);
   const dispatch = useDispatch();
   Sound.setCategory('Playback');
 
@@ -52,6 +60,11 @@ const Mp3Test = async ({music, playon, playid}: any) => {
     ding.play((success: any) => {
       if (success) {
         console.log('successfully finished playing', ding.getDuration());
+        dataMusics.musics.map(vl => {
+          if (vl.uid == dataPlay.uid + 1) {
+            dispatch(AddPlaysong(vl));
+          }
+        });
       } else {
         console.log('playback failed due to audio decoding errors');
       }
