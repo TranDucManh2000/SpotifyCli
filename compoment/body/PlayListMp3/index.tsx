@@ -1,5 +1,5 @@
 import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState, useRef, useCallback} from 'react';
 import styles from './style';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -20,16 +20,24 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AddPlaysong} from '../../redux/Reduce';
 
 const PlayListMp3 = () => {
+  const allTime = useSelector(dataAllTime);
   const [openMV, setOpenMV] = useState(false);
   const [openSong, setOpenSong] = useState(false);
 
+  const [flag, setFlag] = useState(false);
+
   const dataPlay = useSelector(dataPlayItem);
   const currentTime = useSelector(dataCurrentTime);
-  const allTime = useSelector(dataAllTime);
   const dataMusics = useSelector(dataMusic);
   const dispath = useDispatch();
-  // console.log('++)\\\\\\\\\\\\\\', allTime);
+  console.log('++)\\\\\\\\\\\\\\', allTime);
   // console.log('++)))))))))))))', currentTime);
+  const [all, setAll] = useState(6);
+
+  useEffect(() => {
+    setAll(allTime);
+  }, [allTime]);
+
   const OpenPlayMV = () => {
     setOpenMV(!openMV);
   };
@@ -46,20 +54,60 @@ const PlayListMp3 = () => {
   };
 
   const offPlayModa = () => {
+    setFlag(!flag);
     setOpenSong(!openSong);
+    pauseMp3Time();
   };
   const openPlayModa = () => {
+    setFlag(!flag);
+    // setAll(allTime);
     setOpenSong(!openSong);
+    playMp3Time();
   };
   const nextDing = (uid: any, item: any) => {
-    console.log('add ding =====>');
+    console.log('add ding =====>', item);
     dataMusics.musics.map(vl => {
-      if (vl.uid == uid + item) {
+      if (vl.uid === uid + item) {
         dispath(AddPlaysong(vl));
         setOpenSong(false);
       }
     });
   };
+
+  // ==============
+  var m = Math.floor((all % 3600) / 60);
+  var s = Math.floor((all % 3600) % 60);
+  var mDisplay = m > 0 ? m + (m == 1 ? ' . ' : '') : '';
+  var sDisplay = s > 0 ? s + (s == 1 ? '.' : ' ') : '';
+  const allPlay = mDisplay + sDisplay;
+  console.log('ppppplay', allPlay);
+
+  var m = Math.floor((currentTime % 3600) / 60);
+  var s = Math.floor((currentTime % 3600) % 60);
+  var pDisplay = m > 0 ? m + (m == 1 ? ' . ' : '') : '';
+  var gDisplay = s > 0 ? s + (s == 1 ? '.' : '') : 0;
+  const curenPlatTime = pDisplay + gDisplay;
+  console.log('mmmmmmm', curenPlatTime);
+
+  let time = useRef();
+  const playMp3Time = () => {
+    time.current = setInterval(() => {
+      setAll(all - 1);
+    }, 1000);
+    if (all === 0) {
+      clearInterval(time.current);
+    }
+  };
+  const pauseMp3Time = () => {
+    clearInterval(time.current);
+  };
+
+  const calTimeOut = useCallback(() => {
+    let total = allTime;
+    total = total - Number(curenPlatTime);
+    return total;
+  }, [allTime, curenPlatTime]);
+
   return (
     <View style={styles.PlayMp3}>
       <View style={styles.list_PlayMp3}>
@@ -143,15 +191,15 @@ const PlayListMp3 = () => {
                 <Slider
                   style={{width: '100%', height: 20}}
                   minimumValue={0}
-                  maximumValue={allTime}
+                  maximumValue={100}
                   value={(currentTime / allTime) * 100}
                   minimumTrackTintColor="#FFFF"
                   maximumTrackTintColor="#777777"
                   thumbTintColor="#ffff"
                 />
                 <View style={styles.time_Play}>
-                  <Text style={styles.time}>23</Text>
-                  <Text style={styles.time}>223</Text>
+                  <Text style={styles.time}>{curenPlatTime}</Text>
+                  <Text style={styles.time}>{calTimeOut()}</Text>
                 </View>
                 <View style={styles.adjust_play}>
                   <TouchableOpacity>

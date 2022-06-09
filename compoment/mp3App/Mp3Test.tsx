@@ -30,7 +30,9 @@ const Mp3Test = async ({music, playon, playid}: any) => {
         }
         // if loaded successfully
         const allTimeSong = ding.getDuration();
+
         dispatch(getDataAllTime(allTimeSong));
+
         console.log(
           'duration in second>>>>>: ' +
             ding.getDuration() +
@@ -53,8 +55,6 @@ const Mp3Test = async ({music, playon, playid}: any) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log('ding', ding);
 
   const playPause = useCallback(() => {
     ding.play((success: any) => {
