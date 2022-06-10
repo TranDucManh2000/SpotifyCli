@@ -17,7 +17,7 @@ export interface getstate {
       singer: any;
       uid: any;
     };
-    currentTime: number;
+
     allTime: number;
   };
 }
@@ -39,6 +39,6 @@ export interface initialStates {
     singer: any;
     uid: any;
   };
-  currentTime: number;
+
   allTime: number;
 }

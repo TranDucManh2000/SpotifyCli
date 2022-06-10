@@ -18,7 +18,7 @@ const initialState: initialStates = {
     singer: '',
     uid: '',
   },
-  currentTime: 0,
+
   allTime: 0,
 };
 
@@ -26,9 +26,6 @@ export const TodoSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
-    getDataCurrentTime: (state, action) => {
-      state.currentTime = action.payload;
-    },
     getDataAllTime: (state, action) => {
       state.allTime = action.payload;
     },
@@ -56,14 +53,12 @@ export const dataMusic = (state: getstate) => {
 export const dataPlayItem = (state: getstate) => {
   return state.store.itemPlaySong;
 };
-export const dataCurrentTime = (state: getstate) => {
-  return state.store.currentTime;
-};
+
 export const dataAllTime = (state: getstate) => {
   return state.store.allTime;
 };
 const TodoReducr = TodoSlice.reducer;
 
-export const {getDataCurrentTime, getDataAllTime} = TodoSlice.actions;
+export const {getDataAllTime} = TodoSlice.actions;
 
 export default TodoReducr;

@@ -48,12 +48,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#702F3D',
     borderRadius: 30,
   },
-  time_play_go: {
-    width: '50%',
-    backgroundColor: '#B2B2B2',
-    height: '100%',
-    borderRadius: 30,
-  },
   PlayModal: {
     paddingHorizontal: '5%',
   },

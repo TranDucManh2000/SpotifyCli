@@ -10,9 +10,15 @@ interface Prop {
   setOfDetailSong: React.Dispatch<React.SetStateAction<boolean>>;
   setDetailSong: React.Dispatch<React.SetStateAction<boolean>>;
   Navigation: any;
+  album: any;
 }
 
-const HomeMp3Search = ({setOfDetailSong, setDetailSong, Navigation}: Prop) => {
+const HomeMp3Search = ({
+  setOfDetailSong,
+  setDetailSong,
+  Navigation,
+  album,
+}: Prop) => {
   const ComBack = () => {
     setOfDetailSong(true);
     setDetailSong(false);
@@ -34,14 +40,12 @@ const HomeMp3Search = ({setOfDetailSong, setDetailSong, Navigation}: Prop) => {
           <Image
             style={styles.img_Your}
             source={{
-              uri: 'https://i.9mobi.vn/cf/Images/huy/2021/12/6/anh-gai-xinh-3.jpg',
+              uri: album.img,
             }}
           />
         </View>
         <View style={styles.Play}>
-          <Text style={styles.name_Remastered}>
-            New and approved indie pop. Cover: No Rome
-          </Text>
+          <Text style={styles.name_Remastered}>{album.album}</Text>
           <View style={styles.play_item_album}>
             <View>
               <View style={styles.play_item_img}>
