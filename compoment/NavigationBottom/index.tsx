@@ -10,6 +10,7 @@ import {GetDataMusic} from '../redux/Reduce';
 import firestore from '@react-native-firebase/firestore';
 import {useDispatch} from 'react-redux';
 import Library from '../profile/Library';
+import {ImageBackgroundComponent} from 'react-native';
 
 const Tab: any = createBottomTabNavigator();
 
@@ -33,13 +34,15 @@ function MyTabs() {
       screenOptions={{
         tabBarActiveTintColor: 'red',
         tabBarHideOnKeyboard: 'true',
+        tabBarActiveBackgroundColor: '#000',
+        tabBarInactiveBackgroundColor: '#000',
       }}>
       <Tab.Screen
         name="Home"
         component={BodyHome}
         options={{
           headerShown: false,
-          tabBarIcon: () => <Foundation name="home" size={30} color={'#000'} />,
+          tabBarIcon: () => <Foundation name="home" size={30} color={'#fff'} />,
         }}
       />
       <Tab.Screen
@@ -48,7 +51,7 @@ function MyTabs() {
         options={{
           headerShown: false,
           tabBarIcon: () => (
-            <EvilIcons name="search" size={30} color={'#000'} />
+            <EvilIcons name="search" size={30} color={'#fff'} />
           ),
         }}
       />
@@ -58,7 +61,7 @@ function MyTabs() {
         options={{
           headerShown: false,
           tabBarIcon: () => (
-            <Ionicons name="library-outline" size={25} color={'#000'} />
+            <Ionicons name="library-outline" size={25} color={'#fff'} />
           ),
         }}
       />

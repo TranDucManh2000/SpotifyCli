@@ -19,7 +19,14 @@ const BodyHome = ({navigation}: any) => {
   const dataRecently = dataMusics.musics.slice(8, 13);
   const dataView2021 = dataMusics.musics.slice(30, 35);
   const dataEditorPicks = dataMusics.musics.slice(60, 65);
-
+  const [album, setAlbum] = useState({
+    album: '',
+    date: '',
+    img: '',
+    music: '',
+    singer: '',
+    uid: '',
+  });
   // Mp3Test({
   //   music: dataPlay.music,
   //   playon: onPlaySong,
@@ -29,6 +36,7 @@ const BodyHome = ({navigation}: any) => {
   const PlaySong = (item: any) => {
     setOfDetailSong(false);
     setDetailSong(true);
+    setAlbum(item);
   };
 
   return (
@@ -127,6 +135,7 @@ const BodyHome = ({navigation}: any) => {
           Navigation={Navigation}
           setOfDetailSong={setOfDetailSong}
           setDetailSong={setDetailSong}
+          album={album}
         />
       )}
 

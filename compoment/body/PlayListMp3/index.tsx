@@ -9,12 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modal';
 import LinearGradient from 'react-native-linear-gradient';
 import Slider from '@react-native-community/slider';
-import {
-  dataCurrentTime,
-  dataPlayItem,
-  dataAllTime,
-  dataMusic,
-} from '../../redux/ReduxSlice';
+import {dataPlayItem, dataAllTime, dataMusic} from '../../redux/ReduxSlice';
 import Mp3Test from '../../mp3App/Mp3Test';
 import {useDispatch, useSelector} from 'react-redux';
 import {AddPlaysong} from '../../redux/Reduce';
@@ -23,31 +18,30 @@ const PlayListMp3 = () => {
   const allTime = useSelector(dataAllTime);
   const [openMV, setOpenMV] = useState(false);
   const [openSong, setOpenSong] = useState(false);
-
-  const [flag, setFlag] = useState(false);
-
   const dataPlay = useSelector(dataPlayItem);
-  const currentTime = useSelector(dataCurrentTime);
   const dataMusics = useSelector(dataMusic);
-  const dispath = useDispatch();
   const [indexSlyte, setindexSlyte] = useState(100);
-  const [indexTime, setIndexTime] = useState(0);
-
-  // console.log('++)\\\\\\\\\\\\\\', allTime);
-  // console.log('++)))))))))))))', currentTime);
-
+  const [slider, setSlider] = useState(0);
   const [all, setAll] = useState(6);
+  const [times, setTime] = useState(0);
+  const dispath = useDispatch();
 
-  useEffect(() => {
-    setIndexTime(currentTime);
-  }, [currentTime]);
+  const stylel = {
+    width: (times / allTime) * 100 + '%',
+    // width: '100%',
+    backgroundColor: '#B2B2B2',
+    height: '100%',
+    borderRadius: 30,
+  };
+  const OnChange = (e: any) => {
+    setSlider(e);
+  };
 
   useEffect(() => {
     setAll(allTime);
     pauseMp3Time();
     setOpenSong(false);
     setindexSlyte(0);
-    setIndexTime(0);
   }, [allTime, dataPlay]);
 
   const OpenPlayMV = () => {
@@ -57,27 +51,29 @@ const PlayListMp3 = () => {
     music: dataPlay.music,
     playon: openSong,
     playid: dataPlay.uid,
+    slider: slider,
+    setTime: setTime,
   });
   const onPlayItem = () => {
     setOpenSong(!openSong);
+    playMp3Time();
+    setindexSlyte(100);
   };
   const OfPauItem = () => {
     setOpenSong(!openSong);
+    pauseMp3Time();
   };
 
   const offPlayModa = () => {
-    setFlag(!flag);
     setOpenSong(!openSong);
     pauseMp3Time();
   };
   const openPlayModa = () => {
-    setFlag(!flag);
     setOpenSong(!openSong);
     playMp3Time();
     setindexSlyte(100);
   };
   const nextDing = (uid: any, item: any) => {
-    console.log('add ding =====>', item);
     dataMusics.musics.map(vl => {
       if (vl.uid === uid + item) {
         dispath(AddPlaysong(vl));
@@ -99,9 +95,9 @@ const PlayListMp3 = () => {
 
   const calTimeOut = useCallback(() => {
     let total = allTime;
-    total = total - Math.round(currentTime);
+    total = total - Math.round(times);
     return Math.round(total);
-  }, [allTime, currentTime]);
+  }, [allTime, times]);
 
   return (
     <View style={styles.PlayMp3}>
@@ -144,7 +140,7 @@ const PlayListMp3 = () => {
         </View>
       </View>
       <View style={styles.time_play}>
-        <View style={styles.time_play_go} />
+        <View style={stylel} />
       </View>
       {/* ============================================= */}
       <Modal
@@ -187,13 +183,14 @@ const PlayListMp3 = () => {
                   style={{width: '100%', height: 20}}
                   minimumValue={0}
                   maximumValue={indexSlyte}
-                  value={(currentTime / allTime) * 100}
+                  value={(times / allTime) * 100}
+                  onValueChange={e => OnChange(e)}
                   minimumTrackTintColor="#FFFF"
                   maximumTrackTintColor="#777777"
                   thumbTintColor="#ffff"
                 />
                 <View style={styles.time_Play}>
-                  <Text style={styles.time}>{Math.round(indexTime)}</Text>
+                  <Text style={styles.time}>{Math.round(times)}</Text>
                   <Text style={styles.time}>{calTimeOut()}</Text>
                 </View>
                 <View style={styles.adjust_play}>

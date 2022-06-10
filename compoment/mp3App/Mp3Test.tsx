@@ -8,17 +8,13 @@ var Sound = require('react-native-sound');
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 import {AddPlaysong} from '../redux/Reduce';
-import {
-  getDataCurrentTime,
-  getDataAllTime,
-  dataPlayItem,
-  dataMusic,
-} from '../redux/ReduxSlice';
+import {getDataAllTime, dataPlayItem, dataMusic} from '../redux/ReduxSlice';
 
-const Mp3Test = async ({music, playon, playid}: any) => {
+const Mp3Test = async ({music, playon, playid, slider, setTime}: any) => {
   const dataPlay = useSelector(dataPlayItem);
   const dataMusics = useSelector(dataMusic);
   const dispatch = useDispatch();
+
   Sound.setCategory('Playback');
 
   const ding = useMemo(
@@ -30,9 +26,8 @@ const Mp3Test = async ({music, playon, playid}: any) => {
         }
         // if loaded successfully
         const allTimeSong = ding.getDuration();
-
         dispatch(getDataAllTime(allTimeSong));
-
+        ding.getCurrentTime((t: any) => setTime(t));
         console.log(
           'duration in second>>>>>: ' +
             ding.getDuration() +
@@ -46,13 +41,15 @@ const Mp3Test = async ({music, playon, playid}: any) => {
     [music],
   );
 
-  ding.getCurrentTime((t: any) => dispatch(getDataCurrentTime(t)));
+  ding.getCurrentTime((t: any) => setTime(t));
 
   useEffect(() => {
     ding.setVolume(1);
+
     return () => {
       ding.release();
     };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [music]);
 
@@ -60,9 +57,11 @@ const Mp3Test = async ({music, playon, playid}: any) => {
     ding.play((success: any) => {
       if (success) {
         console.log('successfully finished playing', ding.getDuration());
+
         dataMusics.musics.map(vl => {
           if (vl.uid == dataPlay.uid + 1) {
             dispatch(AddPlaysong(vl));
+            ding.stop();
           }
         });
       } else {
@@ -81,19 +80,13 @@ const Mp3Test = async ({music, playon, playid}: any) => {
     playon ? playPause() : pauseMusic();
   }, [pauseMusic, playPause, playon, playid]);
 
-  // setTimeout(() => {
-  //   if (playon == true) {
-  //     playPause();
-  //   }
-  // }, 1000);
-
-  // const nexMusic = async () => {
-  //   ding.stop();
-  //   setindexMusic(music);
-  // };
-  // const nexTimeMusic = async () => {
-  //   ding.getCurrentTime((seconds: any) => ding.setCurrentTime(15 + seconds));
-  // };
+  useEffect(() => {
+    const allTimeSong = ding.getDuration();
+    ding.getCurrentTime((seconds: any) =>
+      ding.setCurrentTime((allTimeSong / 100) * slider),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slider]);
 
   return (
     <View
