@@ -54,7 +54,7 @@ const Mp3Test = async ({music, playon, playid}: any) => {
       ding.release();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [music]);
 
   const playPause = useCallback(() => {
     ding.play((success: any) => {
@@ -79,7 +79,13 @@ const Mp3Test = async ({music, playon, playid}: any) => {
   useEffect(() => {
     console.log('playon', playon);
     playon ? playPause() : pauseMusic();
-  }, [pauseMusic, playPause, playon]);
+  }, [pauseMusic, playPause, playon, playid]);
+
+  // setTimeout(() => {
+  //   if (playon == true) {
+  //     playPause();
+  //   }
+  // }, 1000);
 
   // const nexMusic = async () => {
   //   ding.stop();

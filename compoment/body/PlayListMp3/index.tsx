@@ -30,13 +30,25 @@ const PlayListMp3 = () => {
   const currentTime = useSelector(dataCurrentTime);
   const dataMusics = useSelector(dataMusic);
   const dispath = useDispatch();
-  console.log('++)\\\\\\\\\\\\\\', allTime);
+  const [indexSlyte, setindexSlyte] = useState(100);
+  const [indexTime, setIndexTime] = useState(0);
+
+  // console.log('++)\\\\\\\\\\\\\\', allTime);
   // console.log('++)))))))))))))', currentTime);
+
   const [all, setAll] = useState(6);
 
   useEffect(() => {
+    setIndexTime(currentTime);
+  }, [currentTime]);
+
+  useEffect(() => {
     setAll(allTime);
-  }, [allTime]);
+    pauseMp3Time();
+    setOpenSong(false);
+    setindexSlyte(0);
+    setIndexTime(0);
+  }, [allTime, dataPlay]);
 
   const OpenPlayMV = () => {
     setOpenMV(!openMV);
@@ -60,9 +72,9 @@ const PlayListMp3 = () => {
   };
   const openPlayModa = () => {
     setFlag(!flag);
-    // setAll(allTime);
     setOpenSong(!openSong);
     playMp3Time();
+    setindexSlyte(100);
   };
   const nextDing = (uid: any, item: any) => {
     console.log('add ding =====>', item);
@@ -70,33 +82,16 @@ const PlayListMp3 = () => {
       if (vl.uid === uid + item) {
         dispath(AddPlaysong(vl));
         setOpenSong(false);
+        setindexSlyte(0);
       }
     });
   };
-
-  // ==============
-  var m = Math.floor((all % 3600) / 60);
-  var s = Math.floor((all % 3600) % 60);
-  var mDisplay = m > 0 ? m + (m == 1 ? ' . ' : '') : '';
-  var sDisplay = s > 0 ? s + (s == 1 ? '.' : ' ') : '';
-  const allPlay = mDisplay + sDisplay;
-  console.log('ppppplay', allPlay);
-
-  var m = Math.floor((currentTime % 3600) / 60);
-  var s = Math.floor((currentTime % 3600) % 60);
-  var pDisplay = m > 0 ? m + (m == 1 ? ' . ' : '') : '';
-  var gDisplay = s > 0 ? s + (s == 1 ? '.' : '') : 0;
-  const curenPlatTime = pDisplay + gDisplay;
-  console.log('mmmmmmm', curenPlatTime);
 
   let time = useRef();
   const playMp3Time = () => {
     time.current = setInterval(() => {
       setAll(all - 1);
     }, 1000);
-    if (all === 0) {
-      clearInterval(time.current);
-    }
   };
   const pauseMp3Time = () => {
     clearInterval(time.current);
@@ -104,9 +99,9 @@ const PlayListMp3 = () => {
 
   const calTimeOut = useCallback(() => {
     let total = allTime;
-    total = total - Number(curenPlatTime);
-    return total;
-  }, [allTime, curenPlatTime]);
+    total = total - Math.round(currentTime);
+    return Math.round(total);
+  }, [allTime, currentTime]);
 
   return (
     <View style={styles.PlayMp3}>
@@ -191,14 +186,14 @@ const PlayListMp3 = () => {
                 <Slider
                   style={{width: '100%', height: 20}}
                   minimumValue={0}
-                  maximumValue={100}
+                  maximumValue={indexSlyte}
                   value={(currentTime / allTime) * 100}
                   minimumTrackTintColor="#FFFF"
                   maximumTrackTintColor="#777777"
                   thumbTintColor="#ffff"
                 />
                 <View style={styles.time_Play}>
-                  <Text style={styles.time}>{curenPlatTime}</Text>
+                  <Text style={styles.time}>{Math.round(indexTime)}</Text>
                   <Text style={styles.time}>{calTimeOut()}</Text>
                 </View>
                 <View style={styles.adjust_play}>
