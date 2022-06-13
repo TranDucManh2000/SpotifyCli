@@ -34,6 +34,9 @@ export const TodoSlice = createSlice({
     getDataAllTime: (state, action) => {
       state.allTime = action.payload;
     },
+    playSongHome: (state, action) => {
+      state.itemPlaySong = action.payload;
+    },
   },
   extraReducers: builder => {
     builder.addCase(GetDataUid.fulfilled, (state: any, action: any) => {
@@ -70,6 +73,6 @@ export const dataUser = (state: getstate) => {
 };
 const TodoReducr = TodoSlice.reducer;
 
-export const {getDataAllTime} = TodoSlice.actions;
+export const {getDataAllTime, playSongHome} = TodoSlice.actions;
 
 export default TodoReducr;

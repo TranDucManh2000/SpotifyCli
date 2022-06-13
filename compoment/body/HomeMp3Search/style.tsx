@@ -7,16 +7,40 @@ const styles = StyleSheet.create({
   },
   Comback: {
     marginTop: '5%',
+    marginBottom: '3%',
+  },
+  SearchBox: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+  homeSearch: {
+    height: 40,
+    backgroundColor: '#7E6E5B',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  inputSearch: {
+    fontSize: 16,
+    paddingLeft: 5,
+    height: '100%',
+    width: '70%',
+  },
+  SearchSort: {
+    height: 40,
+    backgroundColor: '#7E6E5B',
+    width: 64,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
   },
   img_play: {
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: '5%',
   },
-  img_Your: {
-    width: 214,
-    height: 216,
-  },
+
   Play: {
     marginBottom: 20,
   },
@@ -75,12 +99,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  name_item_Album: {
-    fontWeight: '500',
-    fontSize: 17,
-    lineHeight: 23,
-    color: '#fff',
+    marginBottom: 10,
   },
 });
 

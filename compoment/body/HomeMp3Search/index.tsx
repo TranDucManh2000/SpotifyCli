@@ -1,10 +1,20 @@
-import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  TextInput,
+} from 'react-native';
+import React, {useState} from 'react';
 import styles from './style';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import {dataMusic} from '../../redux/ReduxSlice';
+import {playSongHome} from '../../redux/ReduxSlice';
+import {useDispatch, useSelector} from 'react-redux';
 
 interface Prop {
   setOfDetailSong: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,6 +36,28 @@ const HomeMp3Search = ({
     setDetailSong(false);
     setSetTing(false);
   };
+  const [colorItem, setColorItem] = useState();
+  const [scrollImg, setScrollImg] = useState(216);
+  const [opacityImg, set0pacityImg] = useState(1);
+  const dispatch = useDispatch();
+
+  const Data = useSelector(dataMusic);
+  const dataHomeSearch = Data.musics.slice(20, 35);
+
+  const playIngSong = (item: any) => {
+    dispatch(playSongHome(item));
+    setColorItem(item.uid);
+  };
+  const stylel = {
+    width: scrollImg,
+    height: scrollImg,
+    opacity: opacityImg,
+  };
+  const handelScronl = (event: any) => {
+    setScrollImg(216 - event.nativeEvent.contentOffset.y / 2);
+    set0pacityImg(scrollImg / 216);
+    // console.log('=============', opacityImg);
+  };
 
   return (
     <View style={{flex: 1}}>
@@ -39,9 +71,29 @@ const HomeMp3Search = ({
           }}>
           <EvilIcons name="chevron-left" size={35} color={'#fff'} />
         </TouchableOpacity>
+        <View style={styles.SearchBox}>
+          <View style={styles.homeSearch}>
+            <EvilIcons
+              name="search"
+              size={23}
+              color={'#fff'}
+              style={{paddingLeft: 7}}
+            />
+            <TextInput
+              placeholder="Find in playlist"
+              placeholderTextColor={'#fff'}
+              style={styles.inputSearch}
+            />
+          </View>
+          <TouchableOpacity>
+            <View style={styles.SearchSort}>
+              <Text style={{color: '#fff'}}>Sort</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
         <View style={styles.img_play}>
           <Image
-            style={styles.img_Your}
+            style={stylel}
             source={{
               uri: album.img,
             }}
@@ -88,31 +140,50 @@ const HomeMp3Search = ({
             />
           </View>
         </View>
-        <ScrollView>
-          <TouchableOpacity style={styles.item_Album_play}>
-            <View>
-              <View>
-                <Text style={styles.name_item_Album}>
-                  Love Me Do - Mono / Remastered
-                </Text>
-              </View>
-              <View style={styles.doawload_item}>
-                <Ionicons
-                  name="arrow-down-circle"
-                  size={15}
-                  color={'#57B65F'}
-                  style={{marginRight: 10}}
+        <ScrollView onScrollEndDrag={handelScronl}>
+          <View style={{marginBottom: 70}}>
+            {dataHomeSearch.map(item => (
+              <TouchableOpacity
+                style={styles.item_Album_play}
+                onPress={() => {
+                  playIngSong(item);
+                }}>
+                <View>
+                  <View>
+                    <Text
+                      // eslint-disable-next-line react-native/no-inline-styles
+                      style={{
+                        fontWeight: '500',
+                        fontSize: 17,
+                        lineHeight: 23,
+                        color: colorItem === item.uid ? '#1ED760' : '#fff',
+                      }}>
+                      {item.singer}
+                    </Text>
+                  </View>
+                  <View style={styles.doawload_item}>
+                    <Ionicons
+                      name="arrow-down-circle"
+                      size={15}
+                      color={'#57B65F'}
+                      style={{marginRight: 10}}
+                    />
+                    <Text style={styles.The_Beatles}>The Beatles</Text>
+                  </View>
+                </View>
+                {colorItem === item.uid && (
+                  <Entypo name="bar-graph" size={20} color={'#1ED760'} />
+                )}
+
+                <Entypo
+                  name="dots-three-horizontal"
+                  size={20}
+                  color={'#B3B3B3'}
+                  style={{marginLeft: 10}}
                 />
-                <Text style={styles.The_Beatles}>The Beatles</Text>
-              </View>
-            </View>
-            <Entypo
-              name="dots-three-horizontal"
-              size={20}
-              color={'#B3B3B3'}
-              style={{marginLeft: 10}}
-            />
-          </TouchableOpacity>
+              </TouchableOpacity>
+            ))}
+          </View>
         </ScrollView>
       </LinearGradient>
     </View>
