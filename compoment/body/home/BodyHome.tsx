@@ -9,7 +9,7 @@ import PlayListMp3 from '../PlayListMp3';
 import {useSelector} from 'react-redux';
 import HomeMp3Search from '../HomeMp3Search';
 import {dataMusic} from '../../redux/ReduxSlice';
-import Setting from '../setting/Setting';
+import Setting from '../fsetting/Setting';
 
 const BodyHome = ({navigation}: any) => {
   const Navigation = navigation;
