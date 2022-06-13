@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {getstate, initialStates} from '../inteface/InteFace';
-import {AddPlaysong, GetDataMusic, GetDataUid} from './Reduce';
+import {AddPlaysong, GetDataMusic, GetDataUid, GetDataUser} from './Reduce';
 
 const initialState: initialStates = {
   dataUid: {
@@ -17,6 +17,11 @@ const initialState: initialStates = {
     music: '',
     singer: '',
     uid: '',
+  },
+  user: {
+    email: '',
+    uid: '',
+    img: '',
   },
 
   allTime: 0,
@@ -44,6 +49,9 @@ export const TodoSlice = createSlice({
     builder.addCase(AddPlaysong.fulfilled, (state: any, action: any) => {
       state.itemPlaySong = action.payload;
     });
+    builder.addCase(GetDataUser.fulfilled, (state: any, action: any) => {
+      state.user = action.payload;
+    });
   },
 });
 
@@ -59,6 +67,9 @@ export const dataPlayItem = (state: getstate) => {
 
 export const dataAllTime = (state: getstate) => {
   return state.store.allTime;
+};
+export const dataUser = (state: getstate) => {
+  return state.store.user;
 };
 const TodoReducr = TodoSlice.reducer;
 

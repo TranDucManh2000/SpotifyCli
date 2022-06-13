@@ -21,6 +21,7 @@ interface Prop {
   setDetailSong: React.Dispatch<React.SetStateAction<boolean>>;
   Navigation: any;
   album: any;
+  setSetTing: any;
 }
 
 const HomeMp3Search = ({
@@ -28,10 +29,12 @@ const HomeMp3Search = ({
   setDetailSong,
   Navigation,
   album,
+  setSetTing,
 }: Prop) => {
   const ComBack = () => {
     setOfDetailSong(true);
     setDetailSong(false);
+    setSetTing(false);
   };
   const [colorItem, setColorItem] = useState();
   const [scrollImg, setScrollImg] = useState(216);
