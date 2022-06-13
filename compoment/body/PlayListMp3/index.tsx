@@ -1,5 +1,5 @@
 import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
-import React, {useEffect, useState, useRef, useCallback} from 'react';
+import React, {useEffect, useState, useCallback, useRef} from 'react';
 import styles from './style';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -26,23 +26,18 @@ const PlayListMp3 = () => {
   const [times, setTime] = useState(0);
   const dispath = useDispatch();
 
-  const stylel = {
-    width: (times / allTime) * 100 + '%',
-    // width: '100%',
-    backgroundColor: '#B2B2B2',
-    height: '100%',
-    borderRadius: 30,
-  };
   const OnChange = (e: any) => {
     setSlider(e);
   };
 
   useEffect(() => {
     setAll(allTime);
-    pauseMp3Time();
     setOpenSong(false);
-    setindexSlyte(0);
   }, [allTime, dataPlay]);
+
+  // useEffect(() => {
+
+  // })
 
   const OpenPlayMV = () => {
     setOpenMV(!openMV);
@@ -56,22 +51,24 @@ const PlayListMp3 = () => {
   });
   const onPlayItem = () => {
     setOpenSong(!openSong);
-    playMp3Time();
     setindexSlyte(100);
+    setTimeout(() => {
+      setAll(all - 1);
+    }, 10);
   };
   const OfPauItem = () => {
     setOpenSong(!openSong);
-    pauseMp3Time();
   };
 
   const offPlayModa = () => {
     setOpenSong(!openSong);
-    pauseMp3Time();
   };
   const openPlayModa = () => {
     setOpenSong(!openSong);
-    playMp3Time();
     setindexSlyte(100);
+    setTimeout(() => {
+      setAll(all - 1);
+    }, 10);
   };
   const nextDing = (uid: any, item: any) => {
     dataMusics.musics.map(vl => {
@@ -83,22 +80,18 @@ const PlayListMp3 = () => {
     });
   };
 
-  let time = useRef();
-  const playMp3Time = () => {
-    time.current = setInterval(() => {
-      setAll(all - 1);
-    }, 1000);
-  };
-  const pauseMp3Time = () => {
-    clearInterval(time.current);
-  };
-
   const calTimeOut = useCallback(() => {
     let total = allTime;
     total = total - Math.round(times);
     return Math.round(total);
   }, [allTime, times]);
 
+  const stylel = {
+    width: (times / allTime) * 100 + '%',
+    backgroundColor: '#B2B2B2',
+    height: '100%',
+    borderRadius: 30,
+  };
   return (
     <View style={styles.PlayMp3}>
       <View style={styles.list_PlayMp3}>

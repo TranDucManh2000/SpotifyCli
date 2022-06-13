@@ -1,16 +1,12 @@
-import React, {useCallback, useEffect, useMemo} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
-// Import the react-native-sound module
-var Sound = require('react-native-sound');
-// import Sound from 'react-native-sound';
-// import deVuong from '../../android/app/src/main/res/raw/mp3s.mp3';
-// import choemve from '../../android/app/src/main/res/raw/choemve.mp3';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useCallback, useEffect, useMemo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {AddPlaysong} from '../redux/Reduce';
 import {getDataAllTime, dataPlayItem, dataMusic} from '../redux/ReduxSlice';
+// Import the react-native-sound module
 
-const Mp3Test = async ({music, playon, playid, slider, setTime}: any) => {
+var Sound = require('react-native-sound');
+
+const Mp3Test = ({music, playon, playid, slider, setTime}: any) => {
   const dataPlay = useSelector(dataPlayItem);
   const dataMusics = useSelector(dataMusic);
   const dispatch = useDispatch();
@@ -41,8 +37,12 @@ const Mp3Test = async ({music, playon, playid, slider, setTime}: any) => {
     [music],
   );
 
-  ding.getCurrentTime((t: any) => setTime(t));
+  ding.getCurrentTime((t: any) => {
+    console.log('===============');
+    setTime(t);
+  });
 
+  useEffect(() => {}, []);
   useEffect(() => {
     ding.setVolume(1);
 
@@ -54,6 +54,7 @@ const Mp3Test = async ({music, playon, playid, slider, setTime}: any) => {
   }, [music]);
 
   const playPause = useCallback(() => {
+    console.log('pauyyyyyyyyyyyyyyyyyyyy');
     ding.play((success: any) => {
       if (success) {
         console.log('successfully finished playing', ding.getDuration());
@@ -69,11 +70,12 @@ const Mp3Test = async ({music, playon, playid, slider, setTime}: any) => {
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ding]);
+  }, [playon]);
 
   const pauseMusic = useCallback(() => {
+    console.log('pausssssssssssssssss');
     ding.pause();
-  }, [ding]);
+  }, [playon]);
 
   useEffect(() => {
     console.log('playon', playon);
@@ -87,24 +89,6 @@ const Mp3Test = async ({music, playon, playid, slider, setTime}: any) => {
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slider]);
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#000',
-        display: 'none',
-      }}>
-      <TouchableOpacity style={{padding: 20}} onPress={playPause}>
-        <Ionicons name={'ios-play-outline'} size={36} color={'#fff'} />
-      </TouchableOpacity>
-      <TouchableOpacity style={{padding: 20}} onPress={pauseMusic}>
-        <Text style={{fontSize: 20, color: '#fff'}}>Pause</Text>
-      </TouchableOpacity>
-    </View>
-  );
 };
 
 export default Mp3Test;
