@@ -9,11 +9,13 @@ import PlayListMp3 from '../PlayListMp3';
 import {useSelector} from 'react-redux';
 import HomeMp3Search from '../HomeMp3Search';
 import {dataMusic} from '../../redux/ReduxSlice';
+import Setting from '../setting/Setting';
 
 const BodyHome = ({navigation}: any) => {
   const Navigation = navigation;
   const [ofDetailSong, setOfDetailSong] = useState(true);
   const [detailSong, setDetailSong] = useState(false);
+  const [setTing, setSetTing] = useState(false);
   const dataMusics = useSelector(dataMusic);
   // data item song home
   const dataRecently = dataMusics.musics.slice(8, 13);
@@ -36,7 +38,13 @@ const BodyHome = ({navigation}: any) => {
   const PlaySong = (item: any) => {
     setOfDetailSong(false);
     setDetailSong(true);
+    setSetTing(false);
     setAlbum(item);
+  };
+  const PlaySetTing = () => {
+    setOfDetailSong(false);
+    setDetailSong(false);
+    setSetTing(true);
   };
 
   return (
@@ -59,7 +67,7 @@ const BodyHome = ({navigation}: any) => {
                     color={'#fff'}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => PlaySetTing()}>
                   <Feather name="settings" size={25} color={'#fff'} />
                 </TouchableOpacity>
               </View>
@@ -135,7 +143,15 @@ const BodyHome = ({navigation}: any) => {
           Navigation={Navigation}
           setOfDetailSong={setOfDetailSong}
           setDetailSong={setDetailSong}
+          setSetTing={setSetTing}
           album={album}
+        />
+      )}
+      {setTing && (
+        <Setting
+          Navigation={Navigation}
+          setOfDetailSong={setOfDetailSong}
+          setSetTing={setSetTing}
         />
       )}
 

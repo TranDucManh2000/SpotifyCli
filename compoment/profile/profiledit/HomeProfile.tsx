@@ -13,9 +13,28 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import LinearGradient from 'react-native-linear-gradient';
 import {stylesProfileEdit} from './StyleProfileEdit';
+import {useSelector} from 'react-redux';
+import {dataUser} from '../../redux/ReduxSlice';
+import firestore from '@react-native-firebase/firestore';
 
 const HomeProfile = ({navigation}: any) => {
-  const [dataUser, setdataUser] = useState('Manh Tran');
+  const datasUser: any = useSelector(dataUser);
+  const [dataUsers, setdataUser] = useState(datasUser.email);
+
+  const btnSetUser = () => {
+    firestore()
+      .collection('User')
+      .doc(datasUser.uid)
+      .set({
+        email: dataUsers,
+        uid: datasUser.uid,
+        img: 'https://vnn-imgs-a1.vgcloud.vn/icdn.dantri.com.vn/2021/05/26/ngo-ngang-voi-ve-dep-cua-hot-girl-anh-the-chua-tron-18-docx-1622043349706.jpeg',
+      })
+      .then(() => {
+        console.log('User added faill!');
+      });
+  };
+
   return (
     <LinearGradient
       colors={['#00667B', '#002F38', '#101010']}
@@ -37,20 +56,24 @@ const HomeProfile = ({navigation}: any) => {
               <Image
                 style={stylesProfileEdit.avatar}
                 source={{
-                  uri: 'https://vnn-imgs-a1.vgcloud.vn/icdn.dantri.com.vn/2021/05/26/ngo-ngang-voi-ve-dep-cua-hot-girl-anh-the-chua-tron-18-docx-1622043349706.jpeg',
+                  uri: datasUser.img,
                 }}
               />
             </View>
+            {/* <View>
+              <Image style={{width: 200, height: 200}} source={require(path)} />
+            </View> */}
             <View style={stylesProfileEdit.vewCenter}>
               <TextInput
                 style={stylesProfileEdit.inputProfile}
                 placeholderTextColor="#FFF"
-                placeholder={dataUser}
+                placeholder={datasUser.email}
+                onChangeText={(newText: any) => setdataUser(newText)}
               />
             </View>
             <View style={stylesProfileEdit.vewCenter}>
               <TouchableOpacity
-                onPress={() => setdataUser('manh vip')}
+                onPress={() => btnSetUser()}
                 style={stylesProfileEdit.btnEdit}>
                 <Text style={stylesText.font16BollWrite}>Save</Text>
               </TouchableOpacity>

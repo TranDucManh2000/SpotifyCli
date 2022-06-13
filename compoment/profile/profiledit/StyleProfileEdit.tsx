@@ -50,6 +50,8 @@ export const stylesProfileEdit = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
-    width: 'auto',
+    minWidth: 250,
+    textAlign: 'center',
+    // backgroundColor: 'red',
   },
 });

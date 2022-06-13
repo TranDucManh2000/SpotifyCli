@@ -17,6 +17,11 @@ export interface getstate {
       singer: any;
       uid: any;
     };
+    user: {
+      email: any;
+      uid: any;
+      img: any;
+    };
 
     allTime: number;
   };
@@ -38,6 +43,11 @@ export interface initialStates {
     music: any;
     singer: any;
     uid: any;
+  };
+  user: {
+    email: any;
+    uid: any;
+    img: any;
   };
 
   allTime: number;

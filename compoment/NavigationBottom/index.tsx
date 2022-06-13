@@ -6,19 +6,36 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AppSearch from '../body/AppSearch';
-import {GetDataMusic} from '../redux/Reduce';
+import {GetDataMusic, GetDataUser} from '../redux/Reduce';
 import firestore from '@react-native-firebase/firestore';
 import {useDispatch} from 'react-redux';
 import Library from '../profile/Library';
-import {ImageBackgroundComponent} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab: any = createBottomTabNavigator();
 
 function MyTabs() {
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
 
   // nap du lieu vao store
+
+  const retrieveDataUser = async () => {
+    try {
+      const value: any = await AsyncStorage.getItem('userId');
+      firestore()
+        .collection('User')
+        .doc(value)
+        .onSnapshot(documentSnapshot => {
+          dispatch(GetDataUser(documentSnapshot.data()));
+        });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
+
   useEffect(() => {
+    retrieveDataUser();
     firestore()
       .collection('SpotifiMusic')
       .doc('dbmusics')

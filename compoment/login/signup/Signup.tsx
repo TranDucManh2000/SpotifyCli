@@ -48,6 +48,7 @@ const Signup = ({navigation}: any) => {
                 .set({
                   email: e.user.email,
                   uid: e.user.uid,
+                  img: 'https://vnn-imgs-a1.vgcloud.vn/icdn.dantri.com.vn/2021/05/26/ngo-ngang-voi-ve-dep-cua-hot-girl-anh-the-chua-tron-18-docx-1622043349706.jpeg',
                 })
                 .then(() => {
                   console.log('User added!');

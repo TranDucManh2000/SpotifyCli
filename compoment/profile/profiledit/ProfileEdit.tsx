@@ -7,7 +7,12 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import LinearGradient from 'react-native-linear-gradient';
 import {stylesProfileEdit} from './StyleProfileEdit';
 
-const ProfileEdit = ({setIndexLibary, setIndexProfiedit, navigation}: any) => {
+const ProfileEdit = ({
+  setIndexLibary,
+  setIndexProfiedit,
+  navigation,
+  datasUser,
+}: any) => {
   const ComBack = () => {
     setIndexLibary(true);
     setIndexProfiedit(false);
@@ -44,7 +49,7 @@ const ProfileEdit = ({setIndexLibary, setIndexProfiedit, navigation}: any) => {
               <Image
                 style={stylesProfileEdit.avatar}
                 source={{
-                  uri: 'https://vnn-imgs-a1.vgcloud.vn/icdn.dantri.com.vn/2021/05/26/ngo-ngang-voi-ve-dep-cua-hot-girl-anh-the-chua-tron-18-docx-1622043349706.jpeg',
+                  uri: datasUser.img,
                 }}
               />
             </View>

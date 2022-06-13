@@ -264,6 +264,11 @@ android {
 }
 
 dependencies {
+    
+    // fs img64
+    implementation project(':react-native-fs')
+
+    // firebase
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
 
     // When using the BoM, you don't specify versions in Firebase library dependencies

@@ -6,15 +6,20 @@ import {stylesLibary} from './StyleLibary';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import ProfileEdit from '../profiledit/ProfileEdit';
+import {useSelector} from 'react-redux';
+import {dataUser} from '../../redux/ReduxSlice';
 
 const Library = ({navigation}: any) => {
   const [indexLibary, setIndexLibary] = useState<boolean>(true);
   const [indexProfiEdit, setIndexProfiedit] = useState<boolean>(false);
+  const datasUser: any = useSelector(dataUser);
 
   const SetProfileTab = () => {
     setIndexLibary(false);
     setIndexProfiedit(true);
   };
+
+  // console.log('data user =====', datasUser);
 
   const data = [
     {
@@ -43,7 +48,7 @@ const Library = ({navigation}: any) => {
                   <Image
                     style={stylesLibary.avatar}
                     source={{
-                      uri: 'https://vnn-imgs-a1.vgcloud.vn/icdn.dantri.com.vn/2021/05/26/ngo-ngang-voi-ve-dep-cua-hot-girl-anh-the-chua-tron-18-docx-1622043349706.jpeg',
+                      uri: datasUser.img,
                     }}
                   />
                   <Text style={stylesText.font24BollWrite}>Your Library</Text>
@@ -93,6 +98,7 @@ const Library = ({navigation}: any) => {
           setIndexLibary={setIndexLibary}
           setIndexProfiedit={setIndexProfiedit}
           navigation={navigation}
+          datasUser={datasUser}
         />
       )}
     </View>
