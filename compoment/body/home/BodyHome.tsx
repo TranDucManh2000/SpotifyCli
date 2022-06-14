@@ -21,6 +21,7 @@ const BodyHome = ({navigation}: any) => {
   const dataRecently = dataMusics.musics.slice(8, 13);
   const dataView2021 = dataMusics.musics.slice(30, 35);
   const dataEditorPicks = dataMusics.musics.slice(60, 65);
+
   const [album, setAlbum] = useState({
     album: '',
     date: '',
@@ -29,18 +30,14 @@ const BodyHome = ({navigation}: any) => {
     singer: '',
     uid: '',
   });
-  // Mp3Test({
-  //   music: dataPlay.music,
-  //   playon: onPlaySong,
-  // });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const PlaySong = (item: any) => {
     setOfDetailSong(false);
     setDetailSong(true);
     setSetTing(false);
     setAlbum(item);
   };
+
   const PlaySetTing = () => {
     setOfDetailSong(false);
     setDetailSong(false);
@@ -76,8 +73,8 @@ const BodyHome = ({navigation}: any) => {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
               style={{marginBottom: '5%'}}>
-              {dataRecently.map(item => (
-                <TouchableOpacity onPress={() => PlaySong(item)}>
+              {dataRecently.map((item, index) => (
+                <TouchableOpacity key={index} onPress={() => PlaySong(item)}>
                   <View style={styles.itemImage}>
                     <Image
                       style={styles.imgPlayyed}
@@ -104,8 +101,8 @@ const BodyHome = ({navigation}: any) => {
               showsVerticalScrollIndicator={false}
               horizontal
               style={{marginBottom: '5%'}}>
-              {dataView2021.map(item => (
-                <TouchableOpacity>
+              {dataView2021.map((item, index) => (
+                <TouchableOpacity key={index}>
                   <View>
                     <Image
                       source={{
@@ -121,8 +118,8 @@ const BodyHome = ({navigation}: any) => {
 
             <Text style={styles.Text_Editor}>Editor’s picks</Text>
             <ScrollView horizontal={true} style={{marginBottom: 100}}>
-              {dataEditorPicks.map(item => (
-                <TouchableOpacity style={styles.item_Editor}>
+              {dataEditorPicks.map((item, index) => (
+                <TouchableOpacity key={index} style={styles.item_Editor}>
                   <View style={{width: 154}}>
                     <Image
                       source={{

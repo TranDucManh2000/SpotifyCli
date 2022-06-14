@@ -5,8 +5,10 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
+  Animated,
+  Easing,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import styles from './style';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -37,9 +39,8 @@ const HomeMp3Search = ({
     setSetTing(false);
   };
   const [colorItem, setColorItem] = useState();
-  const [scrollImg, setScrollImg] = useState(216);
-  const [opacityImg, set0pacityImg] = useState(1);
   const dispatch = useDispatch();
+  const Animateds: any = Animated;
 
   const Data = useSelector(dataMusic);
   const dataHomeSearch = Data.musics.slice(20, 35);
@@ -48,15 +49,20 @@ const HomeMp3Search = ({
     dispatch(playSongHome(item));
     setColorItem(item.uid);
   };
-  const stylel = {
-    width: scrollImg,
-    height: scrollImg,
-    opacity: opacityImg,
+
+  const fadeAnim = useRef(new Animated.Value(216)).current;
+
+  const fadeIn = (vluae: any) => {
+    Animateds.timing(fadeAnim, {
+      toValue: vluae,
+      duration: 600,
+      easing: Easing.linear,
+    }).start();
   };
+
   const handelScronl = (event: any) => {
-    setScrollImg(216 - event.nativeEvent.contentOffset.y / 2);
-    set0pacityImg(scrollImg / 216);
-    // console.log('=============', opacityImg);
+    const y = event.nativeEvent.contentOffset.y;
+    fadeIn(216 - y);
   };
 
   return (
@@ -92,8 +98,11 @@ const HomeMp3Search = ({
           </TouchableOpacity>
         </View>
         <View style={styles.img_play}>
-          <Image
-            style={stylel}
+          <Animated.Image
+            style={{
+              width: fadeAnim,
+              height: fadeAnim,
+            }}
             source={{
               uri: album.img,
             }}
@@ -142,8 +151,9 @@ const HomeMp3Search = ({
         </View>
         <ScrollView onScrollEndDrag={handelScronl}>
           <View style={{marginBottom: 70}}>
-            {dataHomeSearch.map(item => (
+            {dataHomeSearch.map((item, index) => (
               <TouchableOpacity
+                key={index}
                 style={styles.item_Album_play}
                 onPress={() => {
                   playIngSong(item);
