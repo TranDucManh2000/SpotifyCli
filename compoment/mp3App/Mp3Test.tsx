@@ -9,7 +9,7 @@ var Sound = require('react-native-sound');
 const Mp3Test = ({music, playon, playid, slider, setTime}: any) => {
   const dataPlay = useSelector(dataPlayItem);
   const dataMusics = useSelector(dataMusic);
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
 
   Sound.setCategory('Playback');
 
