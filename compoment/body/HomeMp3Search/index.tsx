@@ -5,8 +5,9 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
+  Animated,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import styles from './style';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -37,8 +38,6 @@ const HomeMp3Search = ({
     setSetTing(false);
   };
   const [colorItem, setColorItem] = useState();
-  const [scrollImg, setScrollImg] = useState(216);
-  const [opacityImg, set0pacityImg] = useState(1);
   const dispatch = useDispatch();
 
   const Data = useSelector(dataMusic);
@@ -48,17 +47,34 @@ const HomeMp3Search = ({
     dispatch(playSongHome(item));
     setColorItem(item.uid);
   };
-  const stylel = {
-    width: scrollImg,
-    height: scrollImg,
-    opacity: opacityImg,
-  };
-  const handelScronl = (event: any) => {
-    setScrollImg(216 - event.nativeEvent.contentOffset.y / 2);
-    set0pacityImg(scrollImg / 216);
-    // console.log('=============', opacityImg);
+
+  const fadeAnim = useRef(new Animated.Value(220)).current;
+  const Opacyti = useRef(new Animated.Value(0)).current;
+
+  const fadeIn = (value: any) => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: value,
+      duration: 600,
+      useNativeDriver: false,
+    }).start();
   };
 
+  const onScroll = (event: any) => {
+    const y = event.nativeEvent.contentOffset.y;
+    Opacyti.setValue(y);
+    fadeIn(220 - y);
+  };
+  const stylel = {
+    width: fadeAnim,
+    height: fadeAnim,
+  };
+  const opacityStyle = {
+    opacity: Opacyti.interpolate({
+      inputRange: [0, 60],
+      outputRange: [1, 0.8],
+    }),
+  };
   return (
     <View style={{flex: 1}}>
       <LinearGradient
@@ -91,14 +107,14 @@ const HomeMp3Search = ({
             </View>
           </TouchableOpacity>
         </View>
-        <View style={styles.img_play}>
-          <Image
+        <Animated.View style={[opacityStyle, styles.img_play]}>
+          <Animated.Image
             style={stylel}
             source={{
               uri: album.img,
             }}
           />
-        </View>
+        </Animated.View>
         <View style={styles.Play}>
           <Text style={styles.name_Remastered}>{album.album}</Text>
           <View style={styles.play_item_album}>
@@ -140,10 +156,11 @@ const HomeMp3Search = ({
             />
           </View>
         </View>
-        <ScrollView onScrollEndDrag={handelScronl}>
+        <ScrollView onScroll={onScroll}>
           <View style={{marginBottom: 70}}>
-            {dataHomeSearch.map(item => (
+            {dataHomeSearch.map((item, index) => (
               <TouchableOpacity
+                key={index}
                 style={styles.item_Album_play}
                 onPress={() => {
                   playIngSong(item);
