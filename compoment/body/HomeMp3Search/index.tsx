@@ -6,7 +6,6 @@ import {
   ScrollView,
   TextInput,
   Animated,
-  Easing,
 } from 'react-native';
 import React, {useRef, useState} from 'react';
 import styles from './style';
@@ -40,7 +39,6 @@ const HomeMp3Search = ({
   };
   const [colorItem, setColorItem] = useState();
   const dispatch = useDispatch();
-  const Animateds: any = Animated;
 
   const Data = useSelector(dataMusic);
   const dataHomeSearch = Data.musics.slice(20, 35);
@@ -50,21 +48,33 @@ const HomeMp3Search = ({
     setColorItem(item.uid);
   };
 
-  const fadeAnim = useRef(new Animated.Value(216)).current;
+  const fadeAnim = useRef(new Animated.Value(220)).current;
+  const Opacyti = useRef(new Animated.Value(0)).current;
 
-  const fadeIn = (vluae: any) => {
-    Animateds.timing(fadeAnim, {
-      toValue: vluae,
+  const fadeIn = (value: any) => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: value,
       duration: 600,
-      easing: Easing.linear,
+      useNativeDriver: false,
     }).start();
   };
 
-  const handelScronl = (event: any) => {
+  const onScroll = (event: any) => {
     const y = event.nativeEvent.contentOffset.y;
-    fadeIn(216 - y);
+    Opacyti.setValue(y);
+    fadeIn(220 - y);
   };
-
+  const stylel = {
+    width: fadeAnim,
+    height: fadeAnim,
+  };
+  const opacityStyle = {
+    opacity: Opacyti.interpolate({
+      inputRange: [0, 60],
+      outputRange: [1, 0.8],
+    }),
+  };
   return (
     <View style={{flex: 1}}>
       <LinearGradient
@@ -97,17 +107,14 @@ const HomeMp3Search = ({
             </View>
           </TouchableOpacity>
         </View>
-        <View style={styles.img_play}>
+        <Animated.View style={[opacityStyle, styles.img_play]}>
           <Animated.Image
-            style={{
-              width: fadeAnim,
-              height: fadeAnim,
-            }}
+            style={stylel}
             source={{
               uri: album.img,
             }}
           />
-        </View>
+        </Animated.View>
         <View style={styles.Play}>
           <Text style={styles.name_Remastered}>{album.album}</Text>
           <View style={styles.play_item_album}>
@@ -149,7 +156,7 @@ const HomeMp3Search = ({
             />
           </View>
         </View>
-        <ScrollView onScrollEndDrag={handelScronl}>
+        <ScrollView onScroll={onScroll}>
           <View style={{marginBottom: 70}}>
             {dataHomeSearch.map((item, index) => (
               <TouchableOpacity
